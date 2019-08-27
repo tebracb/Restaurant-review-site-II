@@ -1,0 +1,51 @@
+[
+    { "restaurantName":"Bronco",
+       "address": "Grote Berg 4-18, 5611 KK Eindhoven",
+       "lat":51.436334,
+       "long":5.477516,
+       "ratings":[
+          {
+             "stars":4,
+             "comment":"Great! But not many veggie options."
+          },
+          {
+             "stars":5,
+             "comment":"My favorite restaurant!"
+          }
+       ]
+    },
+
+    {
+       "restaurantName":"Eindhoven Fisherman",
+       "address":"Vrijstraat 2-24, 5611 AV Eindhoven",
+       "lat":51.439194,
+       "long":5.477213,
+       "ratings":[
+          {
+             "stars":5,
+             "comment":"Tiny pizzeria next to Sacre Coeur!"
+          },
+          {
+             "stars":3,
+             "comment":"Meh, it was fine."
+          }
+       ]
+    },
+
+    {
+      "restaurantName":"Babalou",
+      "address":"Frederiklaan 12, 5616 ND Eindhoven",
+      "lat":51.4427,
+      "long":5.463533,
+      "ratings":[
+         {
+            "stars":5,
+            "comment":"Tiny pizzeria next to Sacre Coeur!"
+         },
+         {
+            "stars":3,
+            "comment":"Meh, it was fine."
+         }
+      ]
+   }
+ ]

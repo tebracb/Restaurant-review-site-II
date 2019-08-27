@@ -1,10 +1,11 @@
 import React from 'react';
+import GoogleMap from "./GoogleMap"
 
 
 function App() {
   return (
     <div className="App">
-      <h1>Restaurant review</h1>
+      <GoogleMap />
     </div>
   );
 }
