@@ -1,4 +1,6 @@
 import React, { Component, createRef } from 'react'
+import restaurantData from "./restaurantData.json";
+// import Marker from "./Marker"
 
 const mapStyles = {
     map: {
@@ -78,13 +80,35 @@ class GoogleMap extends Component {
       map: this.googleMap
     })
 
-  render() {
+    render() {
+
+    //     const restaurantPins = restaurantData.map(item => {
+    //         new window.google.maps.Marker({
+    //           position: {
+    //           lat: item.lat,
+    //           lng: item.long},
+    //           map: this.googleMap
+    //     })
+    // })
+
+    // const restaurantPins = restaurantData.map(item => 
+    //   <Marker lat={item.lat} lng={item.lng} />
+    // )
+
+
+ console.log(restaurantData)
+
+
     return (
+        
+        <div>
       <div
         id="google-map"
         ref={this.googleMapRef}
         style={mapStyles.map}
       />
+      {/* {restaurantPins} */}
+      </div>
     )
   }
 }
