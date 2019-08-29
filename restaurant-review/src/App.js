@@ -3,7 +3,7 @@ import { render } from 'react-dom'; //????
 import GoogleMap from "./GoogleMap";
 import InfoWindow from "./InfoWindow";
 import restaurantData from "./restaurantData.json";
-// import Marker from "./Marker"
+// import RestaurantMarker from "./RestaurantMarker"
 
 class App extends React.Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class App extends React.Component {
 
         // const restaurantMarkers = restaurantData.map(restaurant => {
         //   return(
-        //   <Marker
+        //   <RestaurantMarker
         //   key={restaurant.address}
         //   lat={restaurant.lat}
         //   lng={restaurant.lng}
