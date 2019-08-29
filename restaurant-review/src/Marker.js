@@ -1,21 +1,22 @@
 import React from "react"
 
-class Marker extends React.Component {
-    constructor(props){
+class RestaurantMarker extends React.Component {
+    constructor(props) {
         super(props)
     }
 
-    render(){
+    render() {
         return (
             new window.google.maps.Marker({
-               position: {
-                lat: this.props.lat,
-                lng: this.props.long},
-                map: this.googleMap
-    })
+                position: {
+                    lat: this.props.lat,
+                    lng: this.props.long
+                },
+                map: this.props
+            })
         )
-}
+    }
 }
 
 
-export default Marker
+export default RestaurantMarker
