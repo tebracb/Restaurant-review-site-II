@@ -1,91 +1,73 @@
 import React from 'react';
-import { render } from 'react-dom'; //????
-import GoogleMap from "./GoogleMap";
-import InfoWindow from "./InfoWindow";
-import restaurantData from "./restaurantData.json";
-// import RestaurantMarker from "./RestaurantMarker"
+import GoogleMap from "./components/GoogleMap";
+import restaurantData from "./restaurantData.json"
+import Sidebar from "./components/Sidebar"
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
+// initialize the default, empty state
+    this.state = {
+
+       places: [],
+       selectedPlace: null
+    }
+
+    
   }
 
-  createInfoWindow(e, map) {
-    const infoWindow = new window.google.maps.InfoWindow({
-      content: '<div id="infoWindow" />',
-      position: { lat: e.latLng.lat(), lng: e.latLng.lng() }
+  componentDidMount() {
+    // Load the data from restaurantData.json into the state
+
+    this.setState({
+      places: restaurantData
     })
-    infoWindow.addListener('domready', e => {
-      render(<InfoWindow />, document.getElementById('infoWindow'))
-    })
-    infoWindow.open(map)
   }
+
+  setSelectedPlace = place => {
+    this.setState({
+      selectedPlace: place
+    })
+  }
+
+
 
   render() {
 
+    const restaurantMeta = restaurantData.map (restaurant =>
+      <Sidebar 
+      key = {restaurant.address}
+      restaurant = {restaurant} 
+      selectedPlace = {this.state.selectedPlace}
+      className = {this.state.selectedPlace === restaurant ? "selected" : null}
+      />
+      )
+
+
     return (
       <div>
-      <GoogleMap
-     
-        id="myMap"
-        options={{
-          center: { lat: 51.442, lng: 5.469 },
-          zoom: 14
-        }}
-     
-        onMapLoad={map => {
-          
-          //---DOESN'T WORK BECAUSE marker is moved to other component------
-
-          // marker.addListener('click', e => {
-          //   this.createInfoWindow(e, map)
-          // })
-
-         const restaurantMarkers = restaurantData.map(item => {
-            new window.google.maps.Marker({
-              position: {
-                lat: item.lat,
-                lng: item.long
-              },
-              map: map
-            })
+        <GoogleMap
         
-        })
-          
-        //--------------------TRYING TO RENDER MARKERS AS SEPARATE COMPONENT------------
+          id="myMap"
+          options={{
+            center: { lat: 51.442, lng: 5.469 },
+            zoom: 14
+          }}
 
-        // const restaurantMarkers = restaurantData.map(restaurant => {
-        //   return(
-        //   <RestaurantMarker
-        //   key={restaurant.address}
-        //   lat={restaurant.lat}
-        //   lng={restaurant.lng}
-        //   map={this.map}
-        //   />
-        //   )
-        // })
-        // {restaurantMarkers}
+          // pass state as props to GoogleMap
+          places={this.state.places}
+          setSelectedPlace = {this.setSelectedPlace}
+          selectedPlace = {this.state.selectedPlace}
+        />
 
-        //-------------------------LOOPING THROUGH MARKERS---------------------
-      
-          // restaurantMarkers.forEach (marker => {
-          //       marker.addListener('click', e => {
-          //       this.createInfoWindow(e, map)
-          //   })
-          //   console.log(marker.lat)
-          // })
+        {restaurantMeta}
 
-        }}
-        
-      />
-   
+
       </div>
     )
-
   }
 
 }
-
 
 export default App;

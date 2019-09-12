@@ -1,0 +1,14 @@
+.sidebarDiv {
+    color: rgb(88, 21, 243);
+    text-align: right;
+    margin-right: 20px;
+    font-size: 18px
+}
+
+.ratingPlaceholder {
+    color: blueviolet;
+}
+
+.selected {
+    color: rgb(144, 230, 7)
+}
