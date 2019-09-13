@@ -29,7 +29,7 @@ class GoogleMap extends Component {
 
   //called after state has updated
   componentDidUpdate() {
-    var image = {
+    const image = {
       URL: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
     }
 
@@ -63,9 +63,7 @@ class GoogleMap extends Component {
 
       marker.addListener('click', (e) => {
         // marker.setIcon(image);
-        this.props.setSelectedPlace(restaurant)
-      
-      
+        this.props.setSelectedPlace(restaurant) 
       })
 
 

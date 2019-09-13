@@ -2,6 +2,7 @@ import React from 'react';
 import GoogleMap from "./components/GoogleMap";
 import restaurantData from "./restaurantData.json"
 import Sidebar from "./components/Sidebar"
+import FilterRatings from "./components/FilterRatings"
 
 class App extends React.Component {
   constructor(props) {
@@ -60,7 +61,8 @@ class App extends React.Component {
           setSelectedPlace = {this.setSelectedPlace}
           selectedPlace = {this.state.selectedPlace}
         />
-
+      
+        <FilterRatings />
         {restaurantMeta}
 
 
