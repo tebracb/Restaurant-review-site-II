@@ -8,7 +8,18 @@ const mapStyles = {
   }
 };
 
+// Create an empty list in GoogleMap, add markers to it, 
+// iterate over the markers and call setMap before this this.places.map 
+//loop in componentDidUpdate
+
 class GoogleMap extends Component {
+
+  constructor(props){
+    super(props)
+    this.markersArray = [];
+  }
+
+  
 
   componentDidMount() {
     this.map = new window.google.maps.Map(
@@ -22,8 +33,16 @@ class GoogleMap extends Component {
       URL: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
     }
 
+    
+
+  //remove default marker when clicking on a pin
+  this.markersArray.forEach(function(marker){
+    marker.setMap(null)
+  })
+  this.markersArray = [];
     // Render the markers
     this.props.places.map(restaurant => {
+     
       const markerOptions = {
         position:
         {
@@ -32,18 +51,15 @@ class GoogleMap extends Component {
         },
         map: this.map
       }
-
-      if (restaurant === this.props.selectedPlace) {
       
+      if (restaurant === this.props.selectedPlace) {    
         markerOptions.icon = image.URL
-      } else {
-        markerOptions.icon = null
-      }
+      } 
 
       const marker = new window.google.maps.Marker(
         markerOptions
       )
-
+      this.markersArray.push(marker)
 
       marker.addListener('click', (e) => {
         // marker.setIcon(image);
@@ -57,13 +73,10 @@ class GoogleMap extends Component {
   }
 
 
-
-  // TODO : iconchange on click, list of restaurants on the right (separate component - 
-  //placeList, placeListItem
-  //)
-
   render() {
+
     return (
+      
       <div style={mapStyles.map} id={this.props.id} />
     );
   }
