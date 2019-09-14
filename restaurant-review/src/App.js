@@ -1,21 +1,19 @@
 import React from 'react';
 import GoogleMap from "./components/GoogleMap";
 import restaurantData from "./restaurantData.json"
-import Sidebar from "./components/Sidebar"
+import SidebarItem from "./components/SidebarItem"
 import FilterRatings from "./components/FilterRatings"
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-// initialize the default, empty state
+    // initialize the default, empty state
     this.state = {
-
-       places: [],
-       selectedPlace: null
+      places: [],
+      selectedPlace: null,
+      selectedRating: 0
     }
-
-    
   }
 
   componentDidMount() {
@@ -32,24 +30,28 @@ class App extends React.Component {
     })
   }
 
-
+  setSelectedRating = newRating => {
+    this.setState({
+      selectedRating: newRating
+    })
+    console.log(newRating)
+  }
 
   render() {
 
-    const restaurantMeta = restaurantData.map (restaurant =>
-      <Sidebar 
-      key = {restaurant.address}
-      restaurant = {restaurant} 
-      selectedPlace = {this.state.selectedPlace}
-      className = {this.state.selectedPlace === restaurant ? "selected" : null}
+    const restaurantMeta = restaurantData.map(restaurant =>
+      <SidebarItem
+        key={restaurant.address}
+        restaurant={restaurant}
+        selectedPlace={this.state.selectedPlace}
+        className={this.state.selectedPlace === restaurant ? "selected" : null}
       />
-      )
-
+    )
 
     return (
       <div>
         <GoogleMap
-        
+
           id="myMap"
           options={{
             center: { lat: 51.442, lng: 5.469 },
@@ -58,14 +60,18 @@ class App extends React.Component {
 
           // pass state as props to GoogleMap
           places={this.state.places}
-          setSelectedPlace = {this.setSelectedPlace}
-          selectedPlace = {this.state.selectedPlace}
+          setSelectedPlace={this.setSelectedPlace}
+          selectedPlace={this.state.selectedPlace}
         />
-      
-        <FilterRatings />
+
+        {/* component for the stars (for filtering ratings) */}
+        {/* giving the setRating function as a prop to the FilterRating */}
+        <FilterRatings
+          setSelectedRating={this.setSelectedRating}
+          selectedRating={this.state.selectedRating}
+        />
+
         {restaurantMeta}
-
-
       </div>
     )
   }

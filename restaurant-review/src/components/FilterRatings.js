@@ -5,17 +5,17 @@ import Ratings from "../react-ratings-declarative"
 class FilterRatings extends React.Component {
    constructor(props){
     super(props)
-    this.state = {
-        rating: 0
-    }
+    // this.state = {
+    //     rating: 0
+    // }
  
 }
-    changeRating = (newRating) => {
-      this.setState({
-        rating: newRating
-      });
-      console.log(newRating)
-    }
+    // changeRating = (newRating) => {
+    //   this.setState({
+    //     rating: newRating
+    //   });
+    //   console.log(newRating)
+    // }
 
 
     render() {
@@ -23,21 +23,18 @@ class FilterRatings extends React.Component {
           <div style={{textAlign: "right"}}>
           
           <Ratings 
-            rating={this.state.rating}
-            widgetRatedColors="#676757"
-            changeRating={this.changeRating}
+            rating={this.props.selectedRating}
+            widgetHoverColor="#FFD300"
+            widgetRatedColors="#D4AF37"
+            changeRating={this.props.setSelectedRating}
             widgetDimensions="30px"
           >
-            <Ratings.Widget />
-            <Ratings.Widget />
-            <Ratings.Widget
-            //   widgetDimension="60px"
-            //   svgIconViewBox="0 0 5 5"
-            //   svgIconPath="M2 1 h1 v1 h1 v1 h-1 v1 h-1 v-1 h-1 v-1 h1 z"
-            />
-            <Ratings.Widget />
+            <Ratings.Widget widgetHoverColor="#FFD300"/>
+            <Ratings.Widget widgetHoverColor="#FFD300"/>
+            <Ratings.Widget widgetHoverColor="#FFD300"/>
+            <Ratings.Widget widgetHoverColor="#FFD300"/>
             {/* widgetHoverColor="black"  */}
-            <Ratings.Widget />
+            <Ratings.Widget widgetHoverColor="#FFD300"/>
           </Ratings>
           </div>
       

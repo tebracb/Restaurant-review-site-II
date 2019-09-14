@@ -1,7 +1,7 @@
 import React from "react"
 import "./Sidebar.css"
 
-class Sidebar extends React.Component{
+class SidebarItem extends React.Component{
 constructor(props){
 super(props)
 }
@@ -19,4 +19,4 @@ render(){
 
 }
 
-export default Sidebar
+export default SidebarItem
