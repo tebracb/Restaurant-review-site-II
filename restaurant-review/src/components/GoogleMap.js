@@ -12,22 +12,16 @@ const image = {
   URL: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
 }
 
-
-
-// Create an empty list in GoogleMap, add markers to it, 
-// iterate over the markers and call setMap before this this.places.map 
-//loop in componentDidUpdate
-
 class GoogleMap extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.markersArray = [];
 
-
+    this.infoWindow = new window.google.maps.InfoWindow();
   }
 
- 
+
   componentDidMount() {
     this.map = new window.google.maps.Map(
       document.getElementById(this.props.id),
@@ -37,16 +31,16 @@ class GoogleMap extends Component {
 
   //called after state has updated
   componentDidUpdate() {
-  
 
-  //remove default marker when clicking on a pin
-  this.markersArray.forEach(function(marker){
-    marker.setMap(null)
-  })
-  this.markersArray = [];
+
+    //remove default marker when clicking on a pin
+    this.markersArray.forEach(function (marker) {
+      marker.setMap(null)
+    })
+    this.markersArray = [];
     // Render the markers
     this.props.restaurants.map(restaurant => {
-     
+
       const markerOptions = {
         position:
         {
@@ -55,10 +49,10 @@ class GoogleMap extends Component {
         },
         map: this.map
       }
-      
-      if (restaurant === this.props.selectedRestaurant) {    
+
+      if (restaurant === this.props.selectedRestaurant) {
         markerOptions.icon = image.URL
-      } 
+      }
 
       const marker = new window.google.maps.Marker(
         markerOptions
@@ -67,10 +61,15 @@ class GoogleMap extends Component {
 
       marker.addListener('click', (e) => {
         // marker.setIcon(image);
-        this.props.setSelectedRestaurant(restaurant) 
+        this.props.setSelectedRestaurant(restaurant)
       })
 
-   
+      marker.addListener('mouseover', (e) => { 
+        this.infoWindow.open(this.map,marker);
+        this.infoWindow.setContent(restaurant.restaurantName)
+      })
+
+
     })
   }
 
@@ -78,7 +77,7 @@ class GoogleMap extends Component {
   render() {
 
     return (
-      
+
       <div style={mapStyles.map} id={this.props.id} />
     );
   }
