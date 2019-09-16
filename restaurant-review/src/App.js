@@ -16,9 +16,9 @@ class App extends React.Component {
   }
 
   filterRestaurants = () => this.state.restaurants.filter((restaurant) => {
-   return(
-    restaurant.ratings[0].stars >= this.state.selectedRating
-   )
+    return (
+      restaurant.ratings[0].stars >= this.state.selectedRating
+    )
   })
 
   componentDidMount() {
@@ -27,7 +27,18 @@ class App extends React.Component {
     this.setState({
       restaurants: restaurantData
     })
+
+ const request = new Request("https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyDbdKdJc9wSQ83SQAX9B34xJ_cydDMUQnQ&location=51.442,5.469&radius=500");
+
+   
+   fetch(request,
+   { mode: 'no-cors'})
+   
+      .then(results => console.log(results))
+     
+    .catch(err => console.error(err));
   }
+
 
   setSelectedRestaurant = restaurant => {
     this.setState({
