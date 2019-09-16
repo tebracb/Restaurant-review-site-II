@@ -20,7 +20,7 @@ class FilterRatings extends React.Component {
 
     render() {
       return (
-          <div style={{textAlign: "right"}}>
+          <div>
           
           <Ratings 
             rating={this.props.selectedRating}
