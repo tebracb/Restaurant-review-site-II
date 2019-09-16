@@ -15,6 +15,11 @@ class App extends React.Component {
     }
   }
 
+  filterRestaurants = () => this.state.restaurants.filter((restaurant) => {
+   return(
+    restaurant.ratings[0].stars >= this.state.selectedRating
+   )
+  })
 
   componentDidMount() {
     // Load the data from restaurantData.json into the state
@@ -34,7 +39,6 @@ class App extends React.Component {
     this.setState({
       selectedRating: newRating
     })
-    console.log(newRating)
   }
 
   render() {
@@ -50,7 +54,7 @@ class App extends React.Component {
           }}
 
           // pass state as props to GoogleMap
-          restaurants={this.state.restaurants}
+          restaurants={this.filterRestaurants()}
           setSelectedRestaurant={this.setSelectedRestaurant}
           selectedRestaurant={this.state.selectedRestaurant}
         />
@@ -59,7 +63,7 @@ class App extends React.Component {
         <Sidebar
           selectedRating={this.state.selectedRating}
           setSelectedRating={this.setSelectedRating}
-          restaurants={this.state.restaurants}
+          restaurants={this.filterRestaurants()}
           selectedRestaurant={this.state.selectedRestaurant}
         />
 
