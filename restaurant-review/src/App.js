@@ -32,7 +32,8 @@ class App extends React.Component {
 
    
    fetch(request,
-   { mode: 'no-cors'})
+   { mode: 'no-cors'}
+   )
    
       .then(results => console.log(results))
      

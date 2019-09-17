@@ -50,25 +50,31 @@ class GoogleMap extends Component {
         map: this.map
       }
 
-      if (restaurant === this.props.selectedRestaurant) {
-        markerOptions.icon = image.URL
-      }
 
       const marker = new window.google.maps.Marker(
         markerOptions
       )
-      this.markersArray.push(marker)
+
+      
+
+     this.markersArray.push(marker)
 
       marker.addListener('click', (e) => {
-        // marker.setIcon(image);
         this.props.setSelectedRestaurant(restaurant)
       })
+
+      if (restaurant === this.props.selectedRestaurant) {
+        marker.setIcon(image.URL); 
+      }
 
       marker.addListener('mouseover', (e) => { 
         this.infoWindow.open(this.map,marker);
         this.infoWindow.setContent(restaurant.restaurantName)
       })
 
+      marker.addListener('mouseout', (e) => { 
+        this.infoWindow.close();
+      })
 
     })
   }
