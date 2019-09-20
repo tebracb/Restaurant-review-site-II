@@ -1,0 +1,20 @@
+.infoPhoto {
+    width: 100px;
+    height: auto;
+    max-height: 150px
+   
+}
+
+.photoDiv {
+    height: inherit;
+    float: left;
+    margin-right: 10px
+}
+
+/* .restName{
+    float: right;
+} */
+
+.infoDiv {
+    width: 250px
+}

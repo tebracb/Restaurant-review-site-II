@@ -37,22 +37,6 @@ class FilterRatings extends React.Component {
             <Ratings.Widget widgetHoverColor="#FFD300"/>
           </Ratings>
           </div>
-      
-    
-
-    // <div style={{textAlign: "right"}}>
-    //   <Ratings 
-    //     rating={3.403}
-    //     widgetDimensions="30px"
-    //     widgetSpacings="15px"
-    //   >
-    //     <Ratings.Widget widgetRatedColor="green" />
-    //     <Ratings.Widget widgetSpacing="30px" widgetDimension="15px" />
-    //     <Ratings.Widget widgetRatedColor="black" />
-    //     <Ratings.Widget widgetRatedColor="rebeccapurple" />
-    //     <Ratings.Widget />
-    //   </Ratings>
-    //   </div>
     );
   }
 }

@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import InfoWindow from "./InfoWindow.js"
+import ReactDOMServer from 'react-dom/server';
+
 
 const mapStyles = {
   map: {
@@ -8,65 +11,124 @@ const mapStyles = {
   }
 };
 
-const image = {
-  URL: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
-};
+// const image = {
+//   src: 
+// };
 
 
 class GoogleMap extends Component {
 
   constructor(props) {
     super(props)
-    // this.markersArray = [];
 
-    this.infoWindow = new window.google.maps.InfoWindow();
+    this.state = {
+      markersArray: [],
+    }
+
+    this.infoWindow = new window.google.maps.InfoWindow({
+      width: 600
+    });
+
     this.request = {
       location: this.props.options.center,
       radius: '100',
       types: ["restaurant"]
-     // keyword: "restaurant"
+      // keyword: "restaurant"
     };
+
   }
 
 
   componentDidMount() {
+
     this.map = new window.google.maps.Map(
       document.getElementById(this.props.id),
       this.props.options);
-
     this.initialize();
-    }
-    //
-    initialize() {
+  }
+
+  //
+  initialize() {
+
+
 
     const service = new window.google.maps.places.PlacesService(this.map);
     service.textSearch(this.request, this.callback);
-     //service.nearbySearch(this.request, this.callback); // giving weird results
-    };
-    
-    callback(results, status) {
-      if (status == window.google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-          console.log(results[i])
-          var place = results[i];
-        //   new window.google.maps.Marker({      
-        //     position:
-        //   {
-        //     lat: results[i].geometry.location.lat,
-        //     lng: results[i].geometry.location.lng
-        //   }
-        // })
+   
+    //service.nearbySearch(this.request, this.callback); // giving weird results
+  };
 
-         //createMarker(results[i]);
-        }
+  callback = (results, status) => { 
+
+    
+    
+    if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+      for (let i = 0; i < results.length; i++) {
+        console.log(results[i])
+        let place = results[i];
+        const placesMarker = new window.google.maps.Marker({      
+            position:
+          {
+            lat: results[i].geometry.location.lat(),
+            lng: results[i].geometry.location.lng()
+          },
+          map: this.map,
+        //  icon: "img/restaurantmarker.svg",
+        })
+        placesMarker.addListener('mouseover', (e) => {
+          this.infoWindow.open(this.map, placesMarker);
+          let infoWindowContent = <InfoWindow 
+          name={place.name}
+          imgSrc={place.photos[0].getUrl()}
+          rating = {place.rating}
+          />
+        // this.infoWindow.setContent(<InfoWindow content="works"/>)
+       this.infoWindow.setContent(ReactDOMServer.renderToString(infoWindowContent))
+       
+        })
       }
-    
-    
+      
+        //createMarker(results[i]);
+
+        this.props.restaurants.map(restaurant => {
+        
+          const markerOptions = {
+            position:
+            {
+              lat: restaurant.lat,
+              lng: restaurant.long
+            },
+            map: this.map
+          }
+          const marker = new window.google.maps.Marker(
+            markerOptions
+          )
+          this.setState({
+            markersArray: this.state.markersArray.concat(marker)
+         
+          })
+          
+          console.log(this.state.markersArray)
+
+          marker.addListener('mouseover', (e) => {
+            this.infoWindow.open(this.map, marker);
+            this.infoWindow.setContent(restaurant.restaurantName)
+          })
+
+          marker.addListener('mouseout', (e) => {
+            this.infoWindow.close();
+          })
+
+        })
+
+     
+
     }
-  
-  
+  }
+
+
   //called after state has updated
-  componentDidUpdate() {
+  componentDidUpdate = () => {
 
 
     //remove default marker when clicking on a pin
@@ -74,52 +136,57 @@ class GoogleMap extends Component {
     //   marker.setMap(null)
     // })
     // this.markersArray = [];
-    // Render the markers
-    this.props.restaurants.map(restaurant => {
-
-      const markerOptions = {
-        position:
-        {
-          lat: restaurant.lat,
-          lng: restaurant.long
-        },
-        map: this.map
-      }
-
-
-      const marker = new window.google.maps.Marker(
-        markerOptions
-      )
-
-      //  this.markersArray.push(marker)
-
+  
+   // this.props.restaurants.map(restaurant => {
+     
+    this.state.markersArray.forEach(function (marker) {
+    
       marker.addListener('click', (e) => {
-        this.props.setSelectedRestaurant(restaurant)
-      })
-
-      if (restaurant === this.props.selectedRestaurant) {
-        marker.setIcon(image.URL);
-      }
-
-      marker.addListener('mouseover', (e) => {
-        this.infoWindow.open(this.map, marker);
-        this.infoWindow.setContent(restaurant.restaurantName)
-      })
-
-      marker.addListener('mouseout', (e) => {
-        this.infoWindow.close();
-      })
-
+      // this.props.setSelectedRestaurant(restaurant)
+      console.log("clicked")
+      // if (marker === this.props.selectedRestaurant) {
+      //   marker.setIcon(image.URL);
+      // }
     })
-  }
+   
+
+})
 
 
-  render() {
+//})
 
-    return (
-      <div style={mapStyles.map} id={this.props.id} />
-    );
-  }
+ // })
+}
+
+    //Render the markers
+    // this.props.restaurants.map(restaurant => {
+
+    // const markerOptions = {
+    //   position:
+    //   {
+    //     lat: restaurant.lat,
+    //     lng: restaurant.long
+    //   },
+    //   map: this.map
+    // }
+    // const marker = new window.google.maps.Marker(
+    //   markerOptions
+    // )
+
+
+
+  
+
+
+render() {
+
+  return (
+<div>
+    <div style={mapStyles.map} id={this.props.id} />
+    
+    </div>
+  );
+}
 }
 
 export default GoogleMap
