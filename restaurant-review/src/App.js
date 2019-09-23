@@ -15,7 +15,7 @@ class App extends React.Component {
     }
   }
 
-    // Load the data from restaurantData.json and GooglePlaces into the state
+  // Load the data from restaurantData.json and GooglePlaces into the state
   setRestaurants = (apiresults) => {
     let allRestaurants = apiresults.concat(restaurantData)
     this.setState({
@@ -30,14 +30,12 @@ class App extends React.Component {
   })
 
   componentDidMount() {
-   
-  
 
     // this.setState({
     //  // restaurants: Object.assign({},this.state.restaurants,restaurantData)
     //   restaurants: this.state.restaurants.concat(restaurantData)
     // })
-   
+
   }
 
   setSelectedRestaurant = restaurant => {
@@ -55,7 +53,7 @@ class App extends React.Component {
 
   render() {
     console.log(this.state.restaurants)
-  //  console.log(restaurantData)
+    //  console.log(restaurantData)
     return (
       <div>
         <GoogleMap
@@ -71,7 +69,7 @@ class App extends React.Component {
           restaurants={this.filterRestaurants()}
           setSelectedRestaurant={this.setSelectedRestaurant}
           selectedRestaurant={this.state.selectedRestaurant}
-          setRestaurants = {this.setRestaurants}
+          setRestaurants={this.setRestaurants}
         />
 
 
