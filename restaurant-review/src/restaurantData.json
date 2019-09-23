@@ -1,51 +1,59 @@
 [
-    { "restaurantName":"Bronco",
-       "address": "Grote Berg 4-18, 5611 KK Eindhoven",
-       "lat":51.436334,
-       "long":5.477516,
-       "ratings":[
-          {
-             "stars":2,
-             "comment":"Great! But not many veggie options."
-          },
-          {
-             "stars":5,
-             "comment":"My favorite restaurant!"
-          }
-       ]
-    },
-
-    {
-       "restaurantName":"Eindhoven Fisherman",
-       "address":"Vrijstraat 2-24, 5611 AV Eindhoven",
-       "lat":51.439194,
-       "long":5.477213,
-       "ratings":[
-          {
-             "stars":4,
-             "comment":"Tiny pizzeria next to Sacre Coeur!"
-          },
-          {
-             "stars":3,
-             "comment":"Meh, it was fine."
-          }
-       ]
-    },
-
-    {
-      "restaurantName":"Babalou",
-      "address":"Frederiklaan 12, 5616 ND Eindhoven",
-      "lat":51.4427,
-      "long":5.463533,
-      "ratings":[
+   {
+      "name": "Bronco",
+      "formatted_address": "Grote Berg 4-18, 5611 KK Eindhoven",
+      "geometry":{
+         "location":{
+            "lat":51.436334,
+            "lng":5.477516
+         }
+      },
+      "rating": 3.5,
+      "reviews": [
          {
-            "stars":5,
-            "comment":"Tiny pizzeria next to Sacre Coeur!"
+            "comment": "Great! But not many veggie options."
          },
          {
-            "stars":3,
-            "comment":"Meh, it was fine."
+            "comment": "My favorite restaurant!"
+         }
+      ]
+   },
+   {
+      "name": "Eindhoven Fisherman",
+      "formatted_address": "Vrijstraat 2-24, 5611 AV Eindhoven",
+      "geometry":{
+         "location":{
+            "lat":51.439194,
+            "lng":5.477213
+         }
+      },
+      "rating": 4,
+      "reviews": [
+         {
+            "comment": "Tiny pizzeria next to Sacre Coeur!"
+         },
+         {
+            "comment": "Meh, it was fine."
+         }
+      ]
+   },
+   {
+      "name": "Babalou",
+      "formatted_address": "Frederiklaan 12, 5616 ND Eindhoven",
+      "geometry":{
+         "location":{
+            "lat":51.4427,
+            "lng":5.463533
+         }
+      },
+      "rating": 3.22,
+      "reviews": [
+         {
+            "comment": "Tiny pizzeria next to Sacre Coeur!"
+         },
+         {
+            "comment": "Meh, it was fine."
          }
       ]
    }
- ]
+]

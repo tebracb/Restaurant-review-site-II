@@ -17,7 +17,7 @@ class App extends React.Component {
 
   filterRestaurants = () => this.state.restaurants.filter((restaurant) => {
     return (
-      restaurant.ratings[0].stars >= this.state.selectedRating
+      restaurant.rating >= this.state.selectedRating
     )
   })
 

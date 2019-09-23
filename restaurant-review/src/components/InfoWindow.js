@@ -25,7 +25,7 @@ class InfoWindow extends React.Component {
         return (
             <div className="infoDiv">
                 <div className="photoDiv">
-                    <img className="infoPhoto" src={this.props.imgSrc} />
+                    <img alt="Restaurant" className="infoPhoto" src={this.props.imgSrc} />
                 </div>
                
 

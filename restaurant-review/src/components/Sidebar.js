@@ -8,7 +8,7 @@ class Sidebar extends React.Component {
     render() {
         const restaurantMeta = this.props.restaurants.map(restaurant =>
             <SidebarItem
-                key={restaurant.address}
+                key={restaurant.formatted_address}
                 restaurant={restaurant}
                 className={this.props.selectedRestaurant === restaurant ? "selected" : null}
             />

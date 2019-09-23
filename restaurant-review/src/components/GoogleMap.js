@@ -109,8 +109,8 @@ class GoogleMap extends Component {
           const markerOptions = {
             position:
             {
-              lat: restaurant.lat,
-              lng: restaurant.long
+              lat: restaurant.geometry.location.lat,
+              lng: restaurant.geometry.location.lng
             },
             map: this.map
           }
@@ -126,7 +126,7 @@ class GoogleMap extends Component {
 
           marker.addListener('mouseover', (e) => {
             this.infoWindow.open(this.map, marker);
-            this.infoWindow.setContent(restaurant.restaurantName)
+            this.infoWindow.setContent(restaurant.name)
           })
 
           marker.addListener('mouseout', (e) => {
