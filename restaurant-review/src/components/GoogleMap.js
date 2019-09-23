@@ -65,15 +65,9 @@ class GoogleMap extends Component {
     if (status === window.google.maps.places.PlacesServiceStatus.OK) {
       // TODO 1: change restaurantData.json format to match results of Google API
 
-      // TODO 2: put results to App via props
-      
-    
-        /*
-          Our onClick event will return the function that gets set to our action prop
-          that then gets passed into the Parent's setRestaurants function.
-        */
-
+    //put results to App via props (callback from child to parent)
       this.props.setRestaurants(results)
+
       for (let i = 0; i < results.length; i++) {
 
         // console.log(results[i])
@@ -129,7 +123,7 @@ class GoogleMap extends Component {
          
           })
           
-          console.log(this.state.markersArray)
+          // console.log(this.state.markersArray)
 
           marker.addListener('mouseover', (e) => {
             this.infoWindow.open(this.map, marker);

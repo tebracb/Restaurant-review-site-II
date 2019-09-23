@@ -15,9 +15,11 @@ class App extends React.Component {
     }
   }
 
-  setRestaurants = (dataFromChild) => {
+    // Load the data from restaurantData.json and GooglePlaces into the state
+  setRestaurants = (apiresults) => {
+    let allRestaurants = apiresults.concat(restaurantData)
     this.setState({
-      restaurants: dataFromChild
+      restaurants: allRestaurants
     })
   }
 
@@ -28,13 +30,14 @@ class App extends React.Component {
   })
 
   componentDidMount() {
-    // Load the data from restaurantData.json into the state
+   
+  
 
     // this.setState({
-    //   restaurants: restaurantData
+    //  // restaurants: Object.assign({},this.state.restaurants,restaurantData)
+    //   restaurants: this.state.restaurants.concat(restaurantData)
     // })
-
-
+   
   }
 
   setSelectedRestaurant = restaurant => {
@@ -49,19 +52,10 @@ class App extends React.Component {
     })
   }
 
-  // TODO 4: create function setRestaurants, which merges results into restaurants from the state
-
-  // childHandler(dataFromChild) {
-  //   // log our state before and after we updated it
-  //   console.log('%cPrevious Parent State: ' + JSON.stringify(this.state), "color:orange");
-  //   this.setState({
-  //       data: dataFromChild
-  //   },() => console.log('Updated Parent State:', this.state));
-
- 
 
   render() {
-
+    console.log(this.state.restaurants)
+  //  console.log(restaurantData)
     return (
       <div>
         <GoogleMap
