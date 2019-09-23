@@ -15,6 +15,12 @@ class App extends React.Component {
     }
   }
 
+  setRestaurants = (dataFromChild) => {
+    this.setState({
+      restaurants: dataFromChild
+    })
+  }
+
   filterRestaurants = () => this.state.restaurants.filter((restaurant) => {
     return (
       restaurant.rating >= this.state.selectedRating
@@ -24,11 +30,11 @@ class App extends React.Component {
   componentDidMount() {
     // Load the data from restaurantData.json into the state
 
-    this.setState({
-      restaurants: restaurantData
-    })
-  
-  
+    // this.setState({
+    //   restaurants: restaurantData
+    // })
+
+
   }
 
   setSelectedRestaurant = restaurant => {
@@ -42,10 +48,18 @@ class App extends React.Component {
       selectedRating: newRating
     })
   }
-  
+
   // TODO 4: create function setRestaurants, which merges results into restaurants from the state
 
-  
+  // childHandler(dataFromChild) {
+  //   // log our state before and after we updated it
+  //   console.log('%cPrevious Parent State: ' + JSON.stringify(this.state), "color:orange");
+  //   this.setState({
+  //       data: dataFromChild
+  //   },() => console.log('Updated Parent State:', this.state));
+
+ 
+
   render() {
 
     return (
@@ -58,11 +72,12 @@ class App extends React.Component {
             zoom: 14
           }}
 
-         
+
           // pass state as props to GoogleMap
           restaurants={this.filterRestaurants()}
           setSelectedRestaurant={this.setSelectedRestaurant}
           selectedRestaurant={this.state.selectedRestaurant}
+          setRestaurants = {this.setRestaurants}
         />
 
 
