@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import InfoWindow from "./InfoWindow.js"
 import ReactDOMServer from 'react-dom/server';
+import "./GoogleMap.css"
 
 
 const mapStyles = {
@@ -16,19 +17,7 @@ const image = {
 };
 
 
-const defaultMarker = {
-  position: "absolute",
-  left: "0px",
-  top: "0px",
-  width: "43px",
-  height: "59px",
-  userSelect: "none",
-  border: "0px",
-  padding: "0px",
-  margin: "0px",
-  maxWidth: "none"
-}
-const defaultImg = "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png"
+const defaultImg = 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png'
 
 
 class GoogleMap extends Component {
@@ -72,12 +61,6 @@ class GoogleMap extends Component {
       //put results to App via props (callback from child to parent)
       this.props.setRestaurants(results)
 
-      for (let i = 0; i < results.length; i++) {
-
-        // console.log(results[i])
-        let place = results[i];
-      }
-
     }
   }
 
@@ -118,34 +101,38 @@ class GoogleMap extends Component {
         restaurant.marker.addListener('mouseout', (e) => {
           this.infoWindow.close();
         })
+
+        restaurant.marker.addListener('click', (e) => {
+
+          this.props.setSelectedRestaurant(restaurant)
+        })
       }
 
 
-      restaurant.marker.addListener('click', (e) => {
 
-        this.props.setSelectedRestaurant(restaurant)
-        if (this.props.selectedRestaurant === restaurant) {
-          restaurant.marker.setIcon(image.URL);
-          console.log(this.props.selectedRestaurant)
-        } else {
-          restaurant.marker.setIcon(defaultImg);
-        }
+      if (this.props.selectedRestaurant === restaurant) {
+        restaurant.marker.setIcon(image.URL);
 
-        // console.log("clicked")
+      } else {
+       
+      restaurant.marker.setIcon(defaultImg.URL);
+      }
 
-        // }
+      // console.log("clicked")
 
+      // }
 
 
-        // TODO 8: update marker of restaurant that is selected
+
+      // TODO 8: update marker of restaurant that is selected
 
 
-      })
+
     })
   }
 
   render() {
-
+    console.log(this.props.selectedRestaurant)
     return (
       <div>
         <div style={mapStyles.map} id={this.props.id} />
