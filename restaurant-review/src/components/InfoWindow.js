@@ -1,6 +1,6 @@
 import React from "react"
 import "./InfoWindow.css"
-import Ratings from "../react-ratings-declarative"
+import Ratings from "react-ratings-declarative"
 
 
 class InfoWindow extends React.Component {

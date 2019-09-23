@@ -62,8 +62,13 @@ class GoogleMap extends Component {
 
     
     
-    if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+    if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+      // TODO 1: change restaurantData.json format to match results of Google API
+
+      // TODO 2: put results to App via props
+
       for (let i = 0; i < results.length; i++) {
+
         console.log(results[i])
         let place = results[i];
         const placesMarker = new window.google.maps.Marker({      
@@ -90,8 +95,17 @@ class GoogleMap extends Component {
       
         //createMarker(results[i]);
 
+        // TODO 5: move this logic to componentDidUpdate
         this.props.restaurants.map(restaurant => {
         
+          if( restaurant.marker === undefined ) {
+            // TODO 6: create marker 
+
+            // TODO 7: restaurant.marker = marker
+          } 
+
+          // TODO 8: update marker of restaurant that is selected
+
           const markerOptions = {
             position:
             {

@@ -43,7 +43,9 @@ class App extends React.Component {
     })
   }
   
+  // TODO 4: create function setRestaurants, which merges results into restaurants from the state
 
+  
   render() {
 
     return (

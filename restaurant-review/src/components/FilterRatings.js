@@ -1,5 +1,5 @@
 import React from "react";
-import Ratings from "../react-ratings-declarative"
+import Ratings from "react-ratings-declarative"
 
 
 class FilterRatings extends React.Component {
