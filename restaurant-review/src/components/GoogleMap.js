@@ -12,10 +12,24 @@ const mapStyles = {
 };
 
 const image = {
-  URL: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png' 
+  URL: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
 };
 
-let markerOptions = []
+
+const defaultMarker = {
+  position: "absolute",
+  left: "0px",
+  top: "0px",
+  width: "43px",
+  height: "59px",
+  userSelect: "none",
+  border: "0px",
+  padding: "0px",
+  margin: "0px",
+  maxWidth: "none"
+}
+const defaultImg = "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png"
+
 
 class GoogleMap extends Component {
 
@@ -62,31 +76,6 @@ class GoogleMap extends Component {
 
         // console.log(results[i])
         let place = results[i];
-        // const placesMarker = new window.google.maps.Marker({
-        //   position:
-        //   {
-        //     lat: place.geometry.location.lat(),
-        //     lng: place.geometry.location.lng()
-        //   },
-        //   map: this.map,
-        //   //  icon: "img/restaurantmarker.svg",
-        // })
-        //   placesMarker.addListener('mouseover', (e) => {
-        //     this.infoWindow.open(this.map, placesMarker);
-        //     let infoWindowContent = <InfoWindow
-        //       name={place.name}
-        //       imgSrc={place.photos[0].getUrl()}
-        //       rating={place.rating}
-        //     />
-        //     this.infoWindow.setContent(ReactDOMServer.renderToString(infoWindowContent))
-        //   })
-
-        //   placesMarker.addListener('mouseout', (e) => {
-        //     this.infoWindow.close();
-        //   })
-        // }
-
-        //createMarker(results[i]);  
       }
 
     }
@@ -100,68 +89,70 @@ class GoogleMap extends Component {
 
       if (restaurant.marker === undefined) {
         // TODO 6: create marker 
-
-        // console.log("function")
-        markerOptions = {
+        console.log("marker created")
+        let markerOptions = {
 
           position:
           {
             lat: typeof restaurant.geometry.location.lat === "function" ? restaurant.geometry.location.lat() : restaurant.geometry.location.lat,
             lng: typeof restaurant.geometry.location.lng === "function" ? restaurant.geometry.location.lng() : restaurant.geometry.location.lng
           },
+
           map: this.map
+
         }
-        this.marker = new window.google.maps.Marker(
+        restaurant.marker = new window.google.maps.Marker(
           markerOptions
         )
+        restaurant.marker.addListener('mouseover', (e) => {
+          let infoWindowContent = <InfoWindow
+            name={restaurant.name}
+            imgSrc={typeof restaurant.photos[0].getUrl === "function" ? restaurant.photos[0].getUrl() : restaurant.photos[0]}
+            rating={restaurant.rating}
+          />
+          this.infoWindow.open(this.map, restaurant.marker);
+          this.infoWindow.setContent(ReactDOMServer.renderToString(infoWindowContent))
 
+        })
+
+        restaurant.marker.addListener('mouseout', (e) => {
+          this.infoWindow.close();
+        })
       }
 
-      //console.log(restaurant.geometry.location.lat)
-      //   // TODO 7: restaurant.marker = marker
-    
 
-      // TODO 8: update marker of restaurant that is selected
+      restaurant.marker.addListener('click', (e) => {
+
+        this.props.setSelectedRestaurant(restaurant)
+        if (this.props.selectedRestaurant === restaurant) {
+          restaurant.marker.setIcon(image.URL);
+          console.log(this.props.selectedRestaurant)
+        } else {
+          restaurant.marker.setIcon(defaultImg);
+        }
+
+        // console.log("clicked")
+
+        // }
 
 
 
-      // this.marker.addListener('click', (e) => {
-      //   this.props.setSelectedRestaurant(restaurant)
-      //   // console.log("clicked")
-      //    restaurant.marker.setIcon(image.URL);
-      //   // }
-      // })
+        // TODO 8: update marker of restaurant that is selected
 
 
-
-      this.marker.addListener('mouseover', (e) => {
-      let infoWindowContent = <InfoWindow
-        name={restaurant.name}
-        imgSrc={typeof restaurant.photos[0].getUrl === "function" ? restaurant.photos[0].getUrl() : restaurant.photos[0]}
-        rating={restaurant.rating}
-      />
-      this.infoWindow.open(this.map, this.marker);
-      this.infoWindow.setContent(ReactDOMServer.renderToString(infoWindowContent))
-
+      })
     })
+  }
 
-      this.marker.addListener('mouseout', (e) => {
-      this.infoWindow.close();
-    })
+  render() {
 
-    })
-}
+    return (
+      <div>
+        <div style={mapStyles.map} id={this.props.id} />
 
-
-render() {
-
-  return (
-    <div>
-      <div style={mapStyles.map} id={this.props.id} />
-
-    </div>
-  );
-}
+      </div>
+    );
+  }
 }
 
 export default GoogleMap

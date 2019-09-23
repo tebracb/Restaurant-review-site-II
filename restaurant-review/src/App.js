@@ -42,6 +42,7 @@ class App extends React.Component {
     this.setState({
       selectedRestaurant: restaurant
     })
+//    console.log(this.state.selectedRestaurant)
   }
 
   setSelectedRating = newRating => {
@@ -52,8 +53,7 @@ class App extends React.Component {
 
 
   render() {
-    console.log(this.state.restaurants)
-    //  console.log(restaurantData)
+  
     return (
       <div>
         <GoogleMap
