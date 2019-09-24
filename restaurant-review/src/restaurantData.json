@@ -2,6 +2,7 @@
    {
       "name": "Bronco",
       "formatted_address": "Grote Berg 4-18, 5611 KK Eindhoven",
+      "reference": "001",
       "geometry":{
          "location":{
             "lat":51.436334,
@@ -26,13 +27,14 @@
    {
       "name": "Eindhoven Fisherman",
       "formatted_address": "Vrijstraat 2-24, 5611 AV Eindhoven",
+      "reference": "002",
       "geometry":{
          "location":{
             "lat":51.439194,
             "lng":5.477213
          }
       },
-      "rating": 4,
+      "rating": 2.6,
       "photos": [
          {
 
@@ -50,6 +52,7 @@
    {
       "name": "Babalou",
       "formatted_address": "Frederiklaan 12, 5616 ND Eindhoven",
+      "reference": "003",
       "geometry":{
          "location":{
             "lat":51.4427,

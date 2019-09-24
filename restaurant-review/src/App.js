@@ -78,6 +78,7 @@ class App extends React.Component {
           setSelectedRating={this.setSelectedRating}
           restaurants={this.filterRestaurants()}
           selectedRestaurant={this.state.selectedRestaurant}
+          setSelectedRestaurant={this.setSelectedRestaurant}
         />
 
       </div>

@@ -8,7 +8,7 @@ super(props)
 
 render(){
     return(
-        <div>
+        <div onClick={() => this.props.setSelectedRestaurant(this.props.restaurant)} style={{cursor:"pointer"}}>
         <h3 className = {this.props.className}>{this.props.restaurant.name}</h3>
         <p>{this.props.restaurant.formatted_address}</p>
         <p>{`rating:${this.props.restaurant.rating}`}</p>

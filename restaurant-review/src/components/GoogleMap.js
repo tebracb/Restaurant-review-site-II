@@ -7,7 +7,7 @@ import "./GoogleMap.css"
 const mapStyles = {
   map: {
     position: 'absolute',
-    width: '80%',
+    width: '78%',
     height: '100%'
   }
 };
@@ -44,10 +44,7 @@ class GoogleMap extends Component {
     this.map = new window.google.maps.Map(
       document.getElementById(this.props.id),
       this.props.options);
-    this.initialize();
 
-  }
-  initialize() {
     const service = new window.google.maps.places.PlacesService(this.map);
     service.textSearch(this.request, this.callback);
 
@@ -57,7 +54,7 @@ class GoogleMap extends Component {
   callback = (results, status) => {
 
     if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-
+      console.log(results)
       //put results to App via props (callback from child to parent)
       this.props.setRestaurants(results)
 
@@ -65,13 +62,11 @@ class GoogleMap extends Component {
   }
 
   //called after state has updated
-  componentDidUpdate = () => {
+  componentDidUpdate = (prevProps) => {
 
-    // TODO 5: move this logic to componentDidUpdate
-    this.props.restaurants.map(restaurant => {
+    this.props.restaurants.forEach(restaurant => {
 
       if (restaurant.marker === undefined) {
-        // TODO 6: create marker 
         console.log("marker created")
         let markerOptions = {
 
@@ -108,35 +103,30 @@ class GoogleMap extends Component {
         })
       }
 
-
-
       if (this.props.selectedRestaurant === restaurant) {
         restaurant.marker.setIcon(image.URL);
 
       } else {
-       
-      restaurant.marker.setIcon(defaultImg.URL);
+
+        restaurant.marker.setIcon(defaultImg.URL);
       }
 
-      // console.log("clicked")
-
-      // }
-
-
-
-      // TODO 8: update marker of restaurant that is selected
-
-
+      restaurant.marker.setVisible(true)
 
     })
+
+    prevProps.restaurants.forEach( restaurant => {
+      if (!this.props.restaurants.includes(restaurant)) {
+        restaurant.marker.setVisible(false)
+      } 
+    })
+
   }
 
   render() {
-    console.log(this.props.selectedRestaurant)
     return (
       <div>
         <div style={mapStyles.map} id={this.props.id} />
-
       </div>
     );
   }
