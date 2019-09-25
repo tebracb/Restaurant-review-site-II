@@ -46,7 +46,7 @@ class App extends React.Component {
 
   handleClick = () => {
     this.setState({
-      selectedRestaurant: null
+      selectedRestaurant: null,
     })
   
 }
@@ -56,7 +56,7 @@ loadDetails = (place) => {
     restaurantDetails: place
   })
 
-  console.log(this.state.restaurantDetails)
+  // console.log(this.state.restaurantDetails)
 }
   render() {
   

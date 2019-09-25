@@ -1,9 +1,9 @@
 .sidebarDiv {
     color: rgb(34, 31, 43);
-    width: 20%;
+    width: 21%;
     position: absolute;
     right: 0;
-    padding-left: 30px;
+   
     font-size: 18px;
     height: 100%;
     overflow-y: scroll; 

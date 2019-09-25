@@ -1,0 +1,9 @@
+.commentText {
+    font-size: 12px;
+    margin: 10px
+}
+
+.profilePhoto {
+    width: 50px;
+    float: left;
+}
