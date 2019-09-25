@@ -41,6 +41,7 @@ constructor(props){
                 <div className="sidebarDiv">
                     <OpenSidebarItem
                         selectedRestaurant={this.props.selectedRestaurant}
+                        restaurantDetails={this.props.restaurantDetails}
                     />
                     <button onClick={this.props.handleClick}>X</button>
                 </div>

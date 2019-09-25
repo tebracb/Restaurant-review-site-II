@@ -11,7 +11,8 @@ class App extends React.Component {
     this.state = {
       restaurants: [],
       selectedRestaurant: null,
-      selectedRating: 0
+      selectedRating: 0,
+      restaurantDetails: null
     }
   }
 
@@ -23,25 +24,12 @@ class App extends React.Component {
     })
   }
 
-  
- loadDetails = (place) => {
-   console.log(place)
- }
-
   filterRestaurants = () => this.state.restaurants.filter((restaurant) => {
     return (
       restaurant.rating >= this.state.selectedRating
     )
   })
 
-  componentDidMount() {
-
-    // this.setState({
-    //  // restaurants: Object.assign({},this.state.restaurants,restaurantData)
-    //   restaurants: this.state.restaurants.concat(restaurantData)
-    // })
-
-  }
 
   setSelectedRestaurant = restaurant => {
     this.setState({
@@ -61,6 +49,14 @@ class App extends React.Component {
       selectedRestaurant: null
     })
   
+}
+
+loadDetails = (place) => {
+  this.setState ({
+    restaurantDetails: place
+  })
+
+  console.log(this.state.restaurantDetails)
 }
   render() {
   
@@ -91,6 +87,7 @@ class App extends React.Component {
           selectedRestaurant={this.state.selectedRestaurant}
           setSelectedRestaurant={this.setSelectedRestaurant}
           handleClick = {this.handleClick}
+          restaurantDetails = {this.state.restaurantDetails}
         />
 
       </div>

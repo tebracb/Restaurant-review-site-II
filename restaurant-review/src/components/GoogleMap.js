@@ -25,10 +25,6 @@ class GoogleMap extends Component {
   constructor(props) {
     super(props)
 
-    // this.state = {
-    //   placeId: null
-    // }
-
     this.infoWindow = new window.google.maps.InfoWindow({
       width: 600
     });
@@ -40,19 +36,13 @@ class GoogleMap extends Component {
       // keyword: "restaurant"
     };
 
-
   }
 
   getPlaceDetail = (placeId) => {
-
-   const placeRequest = {
+    const placeRequest = {
       placeId: placeId,
       fields: ['name', 'rating', 'geometry', 'reviews']
     };
-
-    // this.setState({
-    //   placeId: this.props.selectedRestaurant.placeId
-    // })
 
     const service = new window.google.maps.places.PlacesService(this.map);
     service.getDetails(placeRequest, this.placeCallback)
@@ -64,15 +54,12 @@ class GoogleMap extends Component {
       this.props.options);
 
     const service = new window.google.maps.places.PlacesService(this.map);
-
     service.textSearch(this.request, this.callback);
-
 
     //service.nearbySearch(this.request, this.callback); // giving weird results
   };
 
   callback = (results, status) => {
-
     if (status === window.google.maps.places.PlacesServiceStatus.OK) {
       console.log(results)
       //put results to App via props (callback from child to parent)
@@ -83,7 +70,6 @@ class GoogleMap extends Component {
 
   placeCallback = (place, status) => {
     if (status == window.google.maps.places.PlacesServiceStatus.OK) {
-      this.getPlaceDetail(place);
       this.props.loadDetails(place)
     }
   }
