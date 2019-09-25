@@ -9,9 +9,11 @@ constructor(props){
     super(props)
 }
 
+//getplaceDetails = (placeID) => {
+ //   https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyDbdKdJc9wSQ83SQAX9B34xJ_cydDMUQnQ&
+//}
 
     render() {
-        console.log(this.props.selectedRestaurant)
         const restaurantMeta = this.props.restaurants.map(restaurant =>
             <SidebarItem
                 key={restaurant.reference}
@@ -42,9 +44,6 @@ constructor(props){
                     />
                     <button onClick={this.props.handleClick}>X</button>
                 </div>
-
-
-
         )
     }
 }

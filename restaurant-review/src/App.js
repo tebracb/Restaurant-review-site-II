@@ -23,6 +23,11 @@ class App extends React.Component {
     })
   }
 
+  
+ loadDetails = (place) => {
+   console.log(place)
+ }
+
   filterRestaurants = () => this.state.restaurants.filter((restaurant) => {
     return (
       restaurant.rating >= this.state.selectedRating
@@ -75,6 +80,7 @@ class App extends React.Component {
           setSelectedRestaurant={this.setSelectedRestaurant}
           selectedRestaurant={this.state.selectedRestaurant}
           setRestaurants={this.setRestaurants}
+          loadDetails={this.loadDetails}
         />
 
 

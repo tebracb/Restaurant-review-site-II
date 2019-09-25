@@ -6,7 +6,6 @@ class OpenSidebarItem extends React.Component {
     }
 
     render(){
-        console.log(this.props.selectedRestaurant.name)
         return(
             <h1>{this.props.selectedRestaurant.name}</h1>
          

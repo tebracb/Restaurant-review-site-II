@@ -25,6 +25,10 @@ class GoogleMap extends Component {
   constructor(props) {
     super(props)
 
+    // this.state = {
+    //   placeId: null
+    // }
+
     this.infoWindow = new window.google.maps.InfoWindow({
       width: 600
     });
@@ -36,9 +40,23 @@ class GoogleMap extends Component {
       // keyword: "restaurant"
     };
 
+
   }
 
+  getPlaceDetail = (placeId) => {
 
+   const placeRequest = {
+      placeId: placeId,
+      fields: ['name', 'rating', 'geometry', 'reviews']
+    };
+
+    // this.setState({
+    //   placeId: this.props.selectedRestaurant.placeId
+    // })
+
+    const service = new window.google.maps.places.PlacesService(this.map);
+    service.getDetails(placeRequest, this.placeCallback)
+  }
   componentDidMount() {
 
     this.map = new window.google.maps.Map(
@@ -46,7 +64,9 @@ class GoogleMap extends Component {
       this.props.options);
 
     const service = new window.google.maps.places.PlacesService(this.map);
+
     service.textSearch(this.request, this.callback);
+
 
     //service.nearbySearch(this.request, this.callback); // giving weird results
   };
@@ -61,6 +81,12 @@ class GoogleMap extends Component {
     }
   }
 
+  placeCallback = (place, status) => {
+    if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+      this.getPlaceDetail(place);
+      this.props.loadDetails(place)
+    }
+  }
   //called after state has updated
   componentDidUpdate = (prevProps) => {
 
@@ -100,6 +126,7 @@ class GoogleMap extends Component {
         restaurant.marker.addListener('click', (e) => {
 
           this.props.setSelectedRestaurant(restaurant)
+          this.getPlaceDetail(restaurant.place_id)
         })
       }
 
@@ -115,10 +142,10 @@ class GoogleMap extends Component {
 
     })
 
-    prevProps.restaurants.forEach( restaurant => {
+    prevProps.restaurants.forEach(restaurant => {
       if (!this.props.restaurants.includes(restaurant)) {
         restaurant.marker.setVisible(false)
-      } 
+      }
     })
 
   }
