@@ -41,7 +41,7 @@ class GoogleMap extends Component {
   getPlaceDetail = (placeId) => {
     const placeRequest = {
       placeId: placeId,
-      fields: ['name', 'rating','reviews', 'place_id', 'formatted_phone_number']
+      fields: ['name', 'rating','reviews', 'place_id', 'formatted_phone_number', 'website']
     };
 
     const service = new window.google.maps.places.PlacesService(this.map);

@@ -35,7 +35,7 @@ class App extends React.Component {
     this.setState({
       selectedRestaurant: restaurant
     })
-//    console.log(this.state.selectedRestaurant)
+    //    console.log(this.state.selectedRestaurant)
   }
 
   setSelectedRating = newRating => {
@@ -48,18 +48,17 @@ class App extends React.Component {
     this.setState({
       selectedRestaurant: null,
     })
-  
-}
 
-loadDetails = (place) => {
-  this.setState ({
-    restaurantDetails: place
-  })
+  }
 
-  // console.log(this.state.restaurantDetails)
-}
+  loadDetails = (place) => {
+    this.setState({
+      restaurantDetails: place
+    })
+
+  }
   render() {
-  
+
     return (
       <div>
         <GoogleMap
@@ -86,8 +85,8 @@ loadDetails = (place) => {
           restaurants={this.filterRestaurants()}
           selectedRestaurant={this.state.selectedRestaurant}
           setSelectedRestaurant={this.setSelectedRestaurant}
-          handleClick = {this.handleClick}
-          restaurantDetails = {this.state.restaurantDetails}
+          handleClick={this.handleClick}
+          restaurantDetails={this.state.restaurantDetails}
         />
 
       </div>
