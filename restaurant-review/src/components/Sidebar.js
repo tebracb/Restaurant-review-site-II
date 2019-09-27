@@ -42,8 +42,9 @@ constructor(props){
                     <OpenSidebarItem
                         selectedRestaurant={this.props.selectedRestaurant}
                         restaurantDetails={this.props.restaurantDetails}
+                        handleClick = {this.props.handleClick}
                     />
-                    <button onClick={this.props.handleClick}>X</button>
+                   
                 </div>
         )
     }

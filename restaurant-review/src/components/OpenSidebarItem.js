@@ -1,5 +1,7 @@
 import React from "react"
 import Comment from "./Comment"
+import SidebarInfo from "./SidebarInfo"
+
 
 class OpenSidebarItem extends React.Component {
     constructor() {
@@ -19,7 +21,7 @@ class OpenSidebarItem extends React.Component {
         if (!this.props.restaurantDetails) {
             return null
         }
-   
+        console.log(this.props.restaurantDetails)
             const reviews = this.props.restaurantDetails.reviews.map(review =>
                 <Comment
                     key={review.author_url}
@@ -30,8 +32,12 @@ class OpenSidebarItem extends React.Component {
         return (
 
             <div>
-                <h1>{this.props.selectedRestaurant.name}</h1>
-                <p>{this.props.restaurantDetails.rating}</p>
+                <SidebarInfo 
+                handleClick = {this.props.handleClick}
+                selectedRestaurant = {this.props.selectedRestaurant}
+                restaurantDetails = {this.props.restaurantDetails}
+                />
+                < hr />
                 {reviews}
                 
             </div>
