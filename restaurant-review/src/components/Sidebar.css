@@ -2,9 +2,9 @@
     color: rgb(34, 31, 43);
     width: 21%;
     position: absolute;
-    right: 0;
-   
+    right: 0; 
     font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
     height: 100%;
     overflow-y: scroll; 
 }

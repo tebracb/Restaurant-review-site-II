@@ -4,9 +4,14 @@ import Ratings from "react-ratings-declarative"
 class SidebarInfo extends React.Component {
     constructor(props) {
         super(props)
-    }
+    
 
+
+    }
     render() {
+        this.lat = typeof this.props.selectedRestaurant.geometry.location.lat  === "function" ? this.props.selectedRestaurant.geometry.location.lat() : this.props.selectedRestaurant.geometry.location.lat
+        this.lng = typeof this.props.selectedRestaurant.geometry.location.lng  === "function" ? this.props.selectedRestaurant.geometry.location.lng() : this.props.selectedRestaurant.geometry.location.lng
+        
         return (
             <div className="restaurantInfoDiv">
                 
@@ -27,7 +32,7 @@ class SidebarInfo extends React.Component {
                 </Ratings>
 
 
-            <img src={`https://maps.googleapis.com/maps/api/streetview?size=300x200&location=${this.props.selectedRestaurant.geometry.location.lat()},${this.props.selectedRestaurant.geometry.location.lng()}&fov=90&heading=235&pitch=10&key=AIzaSyDbdKdJc9wSQ83SQAX9B34xJ_cydDMUQnQ&`} />
+            <img src={`https://maps.googleapis.com/maps/api/streetview?size=300x200&location=${this.lat},${this.lng}&fov=90&heading=235&pitch=10&key=AIzaSyDbdKdJc9wSQ83SQAX9B34xJ_cydDMUQnQ&`} />
                 {/* src\components\img\location.svg
             src\components\OpenSidebarItem.js */}
 
