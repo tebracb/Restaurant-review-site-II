@@ -51,7 +51,7 @@ class App extends React.Component {
 
   }
 
-  loadDetails = (place) => {
+  getDetails = (place) => {
     this.setState({
       restaurantDetails: place
     })
@@ -75,7 +75,7 @@ class App extends React.Component {
           setSelectedRestaurant={this.setSelectedRestaurant}
           selectedRestaurant={this.state.selectedRestaurant}
           setRestaurants={this.setRestaurants}
-          loadDetails={this.loadDetails}
+          getDetails={this.getDetails}
         />
 
 
@@ -87,6 +87,7 @@ class App extends React.Component {
           setSelectedRestaurant={this.setSelectedRestaurant}
           handleClick={this.handleClick}
           restaurantDetails={this.state.restaurantDetails}
+          //getDetails={this.getDetails}
         />
 
       </div>

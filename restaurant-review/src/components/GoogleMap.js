@@ -8,7 +8,8 @@ const mapStyles = {
   map: {
     position: 'absolute',
     width: '78%',
-    height: '100%'
+    height: '100%',
+    mapTypeId: window.google.maps.MapTypeId.ROADMAP
   }
 };
 
@@ -63,7 +64,11 @@ class GoogleMap extends Component {
     const service = new window.google.maps.places.PlacesService(this.map);
     service.textSearch(this.request, this.callback);
 
+
+
     //service.nearbySearch(this.request, this.callback); // giving weird results
+
+   
   };
 
   callback = (results, status) => {
@@ -71,17 +76,26 @@ class GoogleMap extends Component {
       console.log(results)
       //put results to App via props (callback from child to parent)
       this.props.setRestaurants(results)
-
+  
     }
   }
 
   placeCallback = (place, status) => {
     if (status == window.google.maps.places.PlacesServiceStatus.OK) {
-      this.props.loadDetails(place)
+      this.props.getDetails(place)
     }
   }
   //called after state has updated
   componentDidUpdate = (prevProps) => {
+   // console.log(new window.google.maps.getCentre())
+
+//    window.google.maps.event.addListener = (this.map, 'bounds_changed', () => {
+//     let bounds =  this.map.getBounds();
+//     let ne = bounds.getNorthEast();
+//     let sw = bounds.getSouthWest();
+//     console.log(bounds)
+//     //do whatever you want with those bounds
+// });
 
     this.props.restaurants.forEach(restaurant => {
 
@@ -128,16 +142,19 @@ class GoogleMap extends Component {
         restaurant.marker.addListener('click', (e) => {
 
           this.props.setSelectedRestaurant(restaurant)
-          this.getPlaceDetail(restaurant.place_id)
+          this.getPlaceDetail(this.props.selectedRestaurant.place_id)
         })
       }
 
+      if(this.props.selectedRestaurant && (prevProps.selectedRestaurant !== this.props.selectedRestaurant)) {
+        this.getPlaceDetail(this.props.selectedRestaurant.place_id)
+      }
+
+
       if (this.props.selectedRestaurant === restaurant) {
         restaurant.marker.setIcon(selectedMarker.URL);
-        console.log(restaurant.photos)
 
-      } 
-      else {
+      } else {
         restaurant.marker.setIcon(this.defaultImg)
       }
 

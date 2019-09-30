@@ -6,6 +6,7 @@ constructor(props){
 super(props)
 }
 
+
 render(){
     return(
         <div onClick={() => this.props.setSelectedRestaurant(this.props.restaurant)} style={{cursor:"pointer"}}>

@@ -20,6 +20,7 @@ constructor(props){
                 restaurant={restaurant}
                 className={this.props.selectedRestaurant === restaurant ? "selected" : null}
                 setSelectedRestaurant={this.props.setSelectedRestaurant}
+                // getDetails={this.props.getDetails}
             />
         )
 
