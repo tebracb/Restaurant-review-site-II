@@ -12,12 +12,14 @@ const mapStyles = {
   }
 };
 
-const image = {
-  URL: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+const selectedMarker = {
+  URL: require("./img/restaurant.png")
 };
 
 
-const defaultImg = 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png'
+// const defaultImg = 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png'
+
+// src={require("./img/location-pin.png")} 
 
 
 class GoogleMap extends Component {
@@ -35,6 +37,11 @@ class GoogleMap extends Component {
       types: ["restaurant"]
       // keyword: "restaurant"
     };
+
+    // this.defaultImg = 
+    // if (this.props.)
+    
+    // require("./img/restaurant.png")
 
   }
 
@@ -79,7 +86,7 @@ class GoogleMap extends Component {
     this.props.restaurants.forEach(restaurant => {
 
       if (restaurant.marker === undefined) {
-        console.log("marker created")
+        console.log(restaurant)
         let markerOptions = {
 
           position:
@@ -89,15 +96,24 @@ class GoogleMap extends Component {
           },
 
           map: this.map
-
         }
         restaurant.marker = new window.google.maps.Marker(
           markerOptions
         )
+
+          // let imgSrc = 
+          //   if (typeof restaurant.photos[0].getUrl === "function"){
+          //   restaurant.photos[0].getUrl()
+          //   } else{
+          //      restaurant.photos[0]
+          //   }
+          // } null
+
+
         restaurant.marker.addListener('mouseover', (e) => {
           let infoWindowContent = <InfoWindow
             name={restaurant.name}
-            imgSrc={typeof restaurant.photos[0].getUrl === "function" ? restaurant.photos[0].getUrl() : restaurant.photos[0]}
+            imgSrc ={typeof restaurant.photos[0].getUrl === "function" ? restaurant.photos[0].getUrl() : restaurant.photos[0]}
             rating={restaurant.rating}
           />
           this.infoWindow.open(this.map, restaurant.marker);
@@ -117,11 +133,12 @@ class GoogleMap extends Component {
       }
 
       if (this.props.selectedRestaurant === restaurant) {
-        restaurant.marker.setIcon(image.URL);
+        restaurant.marker.setIcon(selectedMarker.URL);
+        console.log(restaurant.photos)
 
-      } else {
-
-        restaurant.marker.setIcon(defaultImg.URL);
+      } 
+      else {
+        restaurant.marker.setIcon(this.defaultImg)
       }
 
       restaurant.marker.setVisible(true)
@@ -137,9 +154,11 @@ class GoogleMap extends Component {
   }
 
   render() {
+ 
     return (
       <div>
         <div style={mapStyles.map} id={this.props.id} />
+        
       </div>
     );
   }

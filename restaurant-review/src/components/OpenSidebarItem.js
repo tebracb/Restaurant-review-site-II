@@ -21,7 +21,7 @@ class OpenSidebarItem extends React.Component {
         if (!this.props.restaurantDetails) {
             return null
         }
-        console.log(this.props.restaurantDetails)
+  
             const reviews = this.props.restaurantDetails.reviews.map(review =>
                 <Comment
                     key={review.author_url}

@@ -9,12 +9,8 @@
     overflow-y: scroll; 
 }
 
-.ratingPlaceholder {
-    color: blueviolet;
-}
-
-.selected {
-    color: rgb(144, 230, 7)
+h2 {
+    margin-bottom: 5px
 }
 
 .addressIcon {
@@ -23,20 +19,21 @@
     margin-top: 2px
 }
 
-/* .restaurantInfoDiv {
-    background-color: blanchedalmond;
-} */
-/* 
-.restaurantInfoDiv {
- background-color: antiquewhite
-} */
+.siteLink {
+    margin-top: -5px
+}
+
 
 .restaurantInfoDiv p {
     font-size: 15px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis
+}
 
+.restaurantInfoDiv p:hover {
+    overflow: visible;
+    white-space: normal
 }
 
 .closeButton {
@@ -46,5 +43,6 @@
     outline: none;
     border: 0;
     font-size: 18px;
+    margin-right: 10px;
     cursor: pointer;
 }
