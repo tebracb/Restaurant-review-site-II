@@ -8,38 +8,36 @@ class OpenSidebarItem extends React.Component {
         super()
     }
 
+    componentDidUpdate() {
+        if(this.ele) {
+            this.ele.scrollTo(0, 0);
+          }
+    }
+
     render() {
-        // if (!this.props.restaurantDetails.review) {
-        //     return null
-        // }
-        // const reviews = this.props.restaurantDetails.reviews[0](comment =>
-        //     <Comment
-        //     comment = {comment}
-        //     />
-        // )
 
         if (!this.props.restaurantDetails) {
             return null
         }
-  
-            const reviews = this.props.restaurantDetails.reviews.map(review =>
-                <Comment
-                    key={review.author_url}
-                    review={review}
-                />
-            )
+
+        const reviews = this.props.restaurantDetails.reviews.map(review =>
+            <Comment
+                key={review.author_url}
+                review={review}
+            />
+        )
 
         return (
 
-            <div>
-                <SidebarInfo 
-                handleClick = {this.props.handleClick}
-                selectedRestaurant = {this.props.selectedRestaurant}
-                restaurantDetails = {this.props.restaurantDetails}
+            <div ref={(element) => { this.ele = element}}>
+                <SidebarInfo
+                    handleClick={this.props.handleClick}
+                    selectedRestaurant={this.props.selectedRestaurant}
+                    restaurantDetails={this.props.restaurantDetails}
                 />
                 < hr />
                 {reviews}
-                
+
             </div>
         )
     }

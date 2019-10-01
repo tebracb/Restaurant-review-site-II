@@ -55,6 +55,7 @@ class App extends React.Component {
     this.setState({
       restaurantDetails: place
     })
+    // console.log(place)
 
   }
   render() {

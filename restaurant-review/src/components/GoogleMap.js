@@ -18,7 +18,7 @@ const selectedMarker = {
 };
 
 
-// const defaultImg = 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png'
+const defaultImg = 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png'
 
 // src={require("./img/location-pin.png")} 
 
@@ -41,7 +41,7 @@ class GoogleMap extends Component {
 
     // this.defaultImg = 
     // if (this.props.)
-    
+
     // require("./img/restaurant.png")
 
   }
@@ -49,7 +49,7 @@ class GoogleMap extends Component {
   getPlaceDetail = (placeId) => {
     const placeRequest = {
       placeId: placeId,
-      fields: ['name', 'rating','reviews', 'place_id', 'formatted_phone_number', 'website']
+      fields: ['name', 'rating', 'reviews', 'place_id', 'formatted_phone_number', 'website']
     };
 
     const service = new window.google.maps.places.PlacesService(this.map);
@@ -68,15 +68,22 @@ class GoogleMap extends Component {
 
     //service.nearbySearch(this.request, this.callback); // giving weird results
 
-   
+
   };
 
   callback = (results, status) => {
     if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-      console.log(results)
+      // console.log(results)
       //put results to App via props (callback from child to parent)
-      this.props.setRestaurants(results)
-  
+
+      //filtering out results which don't have photo or ratings
+      let validResults = results.filter((result) => {
+        if (result.photos || result.rating !== 0) {
+          return result
+        }
+      })
+      this.props.setRestaurants(validResults)
+
     }
   }
 
@@ -87,20 +94,27 @@ class GoogleMap extends Component {
   }
   //called after state has updated
   componentDidUpdate = (prevProps) => {
-   // console.log(new window.google.maps.getCentre())
 
-//    window.google.maps.event.addListener = (this.map, 'bounds_changed', () => {
-//     let bounds =  this.map.getBounds();
-//     let ne = bounds.getNorthEast();
-//     let sw = bounds.getSouthWest();
-//     console.log(bounds)
-//     //do whatever you want with those bounds
-// });
+    var bounds = this.map.getBounds();
+    let ne = bounds.getNorthEast();
+   let sw = bounds.getSouthWest();
+    // console.log(ne,sw)
 
+    //    window.google.maps.event.addListener = (this.map, 'bounds_changed', () => {
+    //     let bounds =  this.map.getBounds();
+    //     let ne = bounds.getNorthEast();
+    //     let sw = bounds.getSouthWest();
+    //     console.log(bounds)
+    //     //do whatever you want with those bounds
+    // });
+    // this.map.addListener = (this.map, 'idle', () => {
+    // console.log(this.map.getBounds())
+    // })
     this.props.restaurants.forEach(restaurant => {
 
+      
       if (restaurant.marker === undefined) {
-        console.log(restaurant)
+        // console.log(restaurant)
         let markerOptions = {
 
           position:
@@ -108,26 +122,27 @@ class GoogleMap extends Component {
             lat: typeof restaurant.geometry.location.lat === "function" ? restaurant.geometry.location.lat() : restaurant.geometry.location.lat,
             lng: typeof restaurant.geometry.location.lng === "function" ? restaurant.geometry.location.lng() : restaurant.geometry.location.lng
           },
-
-          map: this.map
+          map: this.map,
+          icon: "/img/restaurantmarker.svg"
         }
         restaurant.marker = new window.google.maps.Marker(
           markerOptions
         )
 
-          // let imgSrc = 
-          //   if (typeof restaurant.photos[0].getUrl === "function"){
-          //   restaurant.photos[0].getUrl()
-          //   } else{
-          //      restaurant.photos[0]
-          //   }
-          // } null
-
+        // let imgSrc = 
+        //   if (typeof restaurant.photos[0].getUrl === "function"){
+        //   restaurant.photos[0].getUrl()
+        //   } else{
+        //      restaurant.photos[0]
+        //   }
+        // } null
+        
 
         restaurant.marker.addListener('mouseover', (e) => {
           let infoWindowContent = <InfoWindow
             name={restaurant.name}
-            imgSrc ={typeof restaurant.photos[0].getUrl === "function" ? restaurant.photos[0].getUrl() : restaurant.photos[0]}
+            imageAvailable={restaurant.photos !== undefined ? true : false}
+            imgSrc={typeof restaurant.photos[0].getUrl === "function" ? restaurant.photos[0].getUrl() : restaurant.photos[0]}
             rating={restaurant.rating}
           />
           this.infoWindow.open(this.map, restaurant.marker);
@@ -140,13 +155,14 @@ class GoogleMap extends Component {
         })
 
         restaurant.marker.addListener('click', (e) => {
-
           this.props.setSelectedRestaurant(restaurant)
-          this.getPlaceDetail(this.props.selectedRestaurant.place_id)
         })
       }
 
-      if(this.props.selectedRestaurant && (prevProps.selectedRestaurant !== this.props.selectedRestaurant)) {
+      //if marker or SidebarItem click changes selectedRestaurant API gets details of new selectedRestaurant
+      // and it's displayed in Sidebar
+
+      if (this.props.selectedRestaurant && (prevProps.selectedRestaurant !== this.props.selectedRestaurant)) {
         this.getPlaceDetail(this.props.selectedRestaurant.place_id)
       }
 
@@ -155,12 +171,21 @@ class GoogleMap extends Component {
         restaurant.marker.setIcon(selectedMarker.URL);
 
       } else {
-        restaurant.marker.setIcon(this.defaultImg)
+        restaurant.marker.setIcon(defaultImg.URL)
+        //restaurant.marker.setIcon(require("./img/restaurantmarker.svg"))
       }
 
       restaurant.marker.setVisible(true)
 
+      // this.map.addListener = (this.map, 'idle', () => {
+      //   if(this.map.getBounds().contains(restaurant.marker.getPosition())) {
+      //     console.log("contains")
+      //    }
+      //   })
+
     })
+
+  
 
     prevProps.restaurants.forEach(restaurant => {
       if (!this.props.restaurants.includes(restaurant)) {
@@ -171,11 +196,11 @@ class GoogleMap extends Component {
   }
 
   render() {
- 
+
     return (
       <div>
         <div style={mapStyles.map} id={this.props.id} />
-        
+
       </div>
     );
   }

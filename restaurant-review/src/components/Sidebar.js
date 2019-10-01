@@ -9,16 +9,18 @@ constructor(props){
     super(props)
 }
 
+
+
 //getplaceDetails = (placeID) => {
  //   https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyDbdKdJc9wSQ83SQAX9B34xJ_cydDMUQnQ&
 //}
+
 
     render() {
         const restaurantMeta = this.props.restaurants.map(restaurant =>
             <SidebarItem
                 key={restaurant.reference}
                 restaurant={restaurant}
-                className={this.props.selectedRestaurant === restaurant ? "selected" : null}
                 setSelectedRestaurant={this.props.setSelectedRestaurant}
                 // getDetails={this.props.getDetails}
             />
@@ -41,6 +43,7 @@ constructor(props){
                 :
                 <div className="sidebarDiv">
                     <OpenSidebarItem
+                   
                         selectedRestaurant={this.props.selectedRestaurant}
                         restaurantDetails={this.props.restaurantDetails}
                         handleClick = {this.props.handleClick}
