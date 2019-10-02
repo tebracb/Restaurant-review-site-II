@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import InfoWindow from "./InfoWindow.js"
-import ReactDOMServer from 'react-dom/server';
+import ReactDOMServer from "react-dom/server"
+import Form from "./Form"
 
 const mapStyles = {
   map: {
     position: 'absolute',
     width: '78%',
-    height: '100%'
+    height: '95%',
+    bottom: '0'
   }
 };
 
@@ -23,12 +25,23 @@ class GoogleMap extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      showForm: false
+    }
+
     this.infoWindow = new window.google.maps.InfoWindow({
       width: 600
     });
 
   //  this.visibleRestaurants = [];
   }
+
+  closeForm = () => {
+    this.setState({
+      showForm:false
+    })
+  }
+
 
   // PLACE DETAILS API //
   getPlaceDetail = (placeId) => {
@@ -65,7 +78,8 @@ class GoogleMap extends Component {
     })
 
  this.map.addListener("rightclick", (e) => {
-  new window.google.maps.Marker({
+  // setTimeout(ShowContextMenuGoolge, 0, ContextMenu, e);
+   new window.google.maps.Marker({
 
     position:
     {
@@ -74,6 +88,14 @@ class GoogleMap extends Component {
     },
     map: this.map
   })
+
+  this.setState({
+    showForm: true
+  })
+
+
+  console.log(this.state.showForm)
+
   // var lat = e.latLng.lat();
   // var lng = e.latLng.lng();
   // populate yor box/field with lat, lng
@@ -202,8 +224,9 @@ class GoogleMap extends Component {
 
     return (
       <div>
-        <div style={mapStyles.map} id={this.props.id} />
-
+        <div style={mapStyles.map} id={this.props.id}/>
+      <div> {this.state.showForm ? <Form closeForm={this.closeForm} /> : null }
+      </div>
       </div>
     );
   }
