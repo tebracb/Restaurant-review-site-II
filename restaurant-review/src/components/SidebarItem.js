@@ -23,8 +23,8 @@ class SidebarItem extends React.Component {
 
     render() {
         return (
-            <div onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff} className={this.state.hovered ? "selected" : null} 
-            onClick={() => this.props.setSelectedRestaurant(this.props.restaurant)} style={{ cursor: "pointer" }}>
+            <div onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff} className={this.state.hovered ? "selected" : null}
+                onClick={() => this.props.setSelectedRestaurant(this.props.restaurant)} style={{ cursor: "pointer" }}>
                 <h3> {this.props.restaurant.name}</h3>
                 <p>{this.props.restaurant.formatted_address}</p>
                 <p>{`rating:${this.props.restaurant.rating}`}</p>

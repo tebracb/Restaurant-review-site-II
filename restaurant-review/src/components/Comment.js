@@ -11,7 +11,7 @@ class Comment extends React.Component {
         return (
             <div className="commentText">
                 <div>
-                <img className="profilePhoto" src={this.props.review.profile_photo_url} />
+                <img className="profilePhoto" src={this.props.review.profile_photo_url ? this.props.review.profile_photo_url : "/img/profilephoto.png"} />
                     <p>{this.props.review.author_name}</p>
                     
                      <Ratings

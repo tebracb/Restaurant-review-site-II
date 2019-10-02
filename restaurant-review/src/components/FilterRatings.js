@@ -5,18 +5,7 @@ import Ratings from "react-ratings-declarative"
 class FilterRatings extends React.Component {
    constructor(props){
     super(props)
-    // this.state = {
-    //     rating: 0
-    // }
- 
 }
-    // changeRating = (newRating) => {
-    //   this.setState({
-    //     rating: newRating
-    //   });
-    //   console.log(newRating)
-    // }
-
 
     render() {
       return (

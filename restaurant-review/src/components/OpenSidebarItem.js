@@ -8,11 +8,11 @@ class OpenSidebarItem extends React.Component {
         super()
     }
 
-    componentDidUpdate() {
-        if(this.ele) {
-            this.ele.scrollTo(0, 0);
-          }
-    }
+    // componentDidUpdate() {
+    //     if(this.ele) {
+    //         this.ele.scrollTo(0, 0);
+    //       }
+    // }
 
     render() {
 
@@ -29,7 +29,8 @@ class OpenSidebarItem extends React.Component {
 
         return (
 
-            <div ref={(element) => { this.ele = element}}>
+            <div>
+                {/* <div ref={(element) => { this.ele = element}} */}
                 <SidebarInfo
                     handleClick={this.props.handleClick}
                     selectedRestaurant={this.props.selectedRestaurant}

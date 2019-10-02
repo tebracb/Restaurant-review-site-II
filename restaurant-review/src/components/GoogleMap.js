@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import InfoWindow from "./InfoWindow.js"
 import ReactDOMServer from 'react-dom/server';
-import "./GoogleMap.css"
-
 
 const mapStyles = {
   map: {
@@ -16,9 +14,7 @@ const selectedMarker = {
   URL: require("./img/restaurant.png")
 };
 
-
 const defaultImg = 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2_hdpi.png'
-
 // src={require("./img/location-pin.png")} 
 
 
@@ -33,6 +29,7 @@ class GoogleMap extends Component {
 
   }
 
+  // PLACE DETAILS API //
   getPlaceDetail = (placeId) => {
     const placeRequest = {
       placeId: placeId,
@@ -48,47 +45,38 @@ class GoogleMap extends Component {
       document.getElementById(this.props.id),
       this.props.options);
 
- //service.nearbySearch(this.request, this.callback); // giving weird results
- this.map.addListener('idle', (e) => {
+    // GOOGLE PLACES API  
+    //- sending new request every time user changes bounds on the map//
+    this.map.addListener('idle', (e) => {
+      const request = {
+        location: this.map.getCenter(),
+        radius: '100',
+        types: ["restaurant"]
+        // keyword: "restaurant"
 
-  const request = {
-    location: this.map.getCenter(),
-    radius: '100',
-    types: ["restaurant"]
-    // keyword: "restaurant"
-  };
+        //service.nearbySearch(this.request, this.callback); // giving weird results
+      };
 
-  // TODO: make only 1 service (just like how we're only making 1 map)
-  const service = new window.google.maps.places.PlacesService(this.map);
-  service.textSearch(request, this.callback);
-    
-    // LatLngBounds(bounds.southeast, bounds.northeast))
-  })
+      // TODO: make only 1 service (just like how we're only making 1 map)
+      const service = new window.google.maps.places.PlacesService(this.map);
+      service.textSearch(request, this.callback);
+    })
 
   };
 
   callback = (results, status) => {
     if (status === window.google.maps.places.PlacesServiceStatus.OK) {
       // console.log(results)
-      //put results to App via props (callback from child to parent)
 
       //filtering out results which don't have photo or ratings
-
       let validResults = results.filter((result) => {
-        // const bounds = this.map.getBounds();
-        // const latlng = new window.google.maps.LatLng(
-        //   result.geometry.location.lat(),
-        //   result.geometry.location.lng()
-        // );
-
         if (result.photos && result.rating !== 0) {
-
           return result
         }
       })
+
+      //put results to App via props (callback from child to parent)
       this.props.setRestaurants(validResults)
-
-
     }
   }
 
@@ -97,63 +85,17 @@ class GoogleMap extends Component {
       this.props.getDetails(place)
     }
   }
+
   //called after state has updated
   componentDidUpdate = (prevProps) => {
 
-  
-    
-
-    // restaurant.marker.addListener('click', (e) => {
-    //   this.props.setSelectedRestaurant(restaurant)
-    // })
-
-
-    // let ne = bounds.getNorthEast();
-    // let sw = bounds.getSouthWest();
-    // // console.log(ne,sw)
-
-    // // Filter places that are within the currently displayed map and save the outcome to state.
-    // // */
-    // filterPlacesInBounds() {
-    //   const LatLng = this.google.maps.LatLng;
-    //   const bounds = this.map.getBounds();
-    //   // Filter places comming from local DB that are within the map
-    //   const placesInBounds = this.state.places.filter((place) => {
-    //     const latlng = new LatLng(
-    //       place.geometry.location.lat,
-    //       place.geometry.location.lng
-    //     );
-    //     return bounds.contains(latlng);
-    //   });
-
-
-    //   console.log(this.map.getBounds().contains(restaurant.marker.getPosition()))
-
-    // this.map.addEventListener = (this.map, 'bounds_changed', () => {
-    //   if(this.map.getBounds().contains(restaurant.marker.getPosition())) {
-    //     console.log("contains")
-    //    }
-    //   })
-
-
-    //    window.google.maps.event.addListener = (this.map, 'bounds_changed', () => {
-    //     let bounds =  this.map.getBounds();
-    //     let ne = bounds.getNorthEast();
-    //     let sw = bounds.getSouthWest();
-    //     console.log(bounds)
-    //     //do whatever you want with those bounds
-    // });
-    // this.map.addListener = (this.map, 'idle', () => {
-    // console.log(this.map.getBounds())
-    // })
     this.props.restaurants.forEach(restaurant => {
-
-
       if (restaurant.marker === undefined) {
         // console.log(restaurant)
         let markerOptions = {
 
           position:
+          //checking if lat is a function (when coming from API); otherwise add regular lat,lng (when coming from JSON)
           {
             lat: typeof restaurant.geometry.location.lat === "function" ? restaurant.geometry.location.lat() : restaurant.geometry.location.lat,
             lng: typeof restaurant.geometry.location.lng === "function" ? restaurant.geometry.location.lng() : restaurant.geometry.location.lng
@@ -165,14 +107,7 @@ class GoogleMap extends Component {
           markerOptions
         )
 
-        // let imgSrc = 
-        //   if (typeof restaurant.photos[0].getUrl === "function"){
-        //   restaurant.photos[0].getUrl()
-        //   } else{
-        //      restaurant.photos[0]
-        //   }
-        // } null
-
+        //--------------------ADD LISTENERS-----------------------//
 
         restaurant.marker.addListener('mouseover', (e) => {
           let infoWindowContent = <InfoWindow
@@ -183,7 +118,6 @@ class GoogleMap extends Component {
           />
           this.infoWindow.open(this.map, restaurant.marker);
           this.infoWindow.setContent(ReactDOMServer.renderToString(infoWindowContent))
-
         })
 
         restaurant.marker.addListener('mouseout', (e) => {
@@ -195,14 +129,14 @@ class GoogleMap extends Component {
         })
       }
 
-      //if marker or SidebarItem click changes selectedRestaurant API gets details of new selectedRestaurant
-      // and it's displayed in Sidebar
+      //if marker or SidebarItem click changes selectedRestaurant, Place Detials API gets details of new 
+      // selectedRestaurant and it's displayed in Sidebar
 
       if (this.props.selectedRestaurant && (prevProps.selectedRestaurant !== this.props.selectedRestaurant)) {
         this.getPlaceDetail(this.props.selectedRestaurant.place_id)
       }
 
-
+      // Marker changes
       if (this.props.selectedRestaurant === restaurant) {
         restaurant.marker.setIcon(selectedMarker.URL);
 
@@ -212,18 +146,14 @@ class GoogleMap extends Component {
       }
 
       restaurant.marker.setVisible(true)
-
-
     })
 
-
-
+    // changing visible markers when restaurant array in App's state is changing (e.g star rating filter was changed)
     prevProps.restaurants.forEach(restaurant => {
       if (!this.props.restaurants.includes(restaurant)) {
         restaurant.marker.setVisible(false)
       }
     })
-
   }
 
   render() {

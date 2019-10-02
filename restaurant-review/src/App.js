@@ -24,6 +24,7 @@ class App extends React.Component {
     })
   }
 
+  //filter out restaurant below the selectedRating(star)
   filterRestaurants = () => this.state.restaurants.filter((restaurant) => {
     return (
       restaurant.rating >= this.state.selectedRating
@@ -88,7 +89,6 @@ class App extends React.Component {
           setSelectedRestaurant={this.setSelectedRestaurant}
           handleClick={this.handleClick}
           restaurantDetails={this.state.restaurantDetails}
-          //getDetails={this.getDetails}
         />
 
       </div>
