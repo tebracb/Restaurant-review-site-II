@@ -27,6 +27,7 @@ class GoogleMap extends Component {
       width: 600
     });
 
+  //  this.visibleRestaurants = [];
   }
 
   // PLACE DETAILS API //
@@ -51,6 +52,7 @@ class GoogleMap extends Component {
       const request = {
         location: this.map.getCenter(),
         radius: '100',
+        //bounds: this.map.getBounds(),
         types: ["restaurant"]
         // keyword: "restaurant"
 
@@ -61,6 +63,22 @@ class GoogleMap extends Component {
       const service = new window.google.maps.places.PlacesService(this.map);
       service.textSearch(request, this.callback);
     })
+
+ this.map.addListener("rightclick", (e) => {
+  new window.google.maps.Marker({
+
+    position:
+    {
+      lat: e.latLng.lat(),
+      lng: e.latLng.lng()
+    },
+    map: this.map
+  })
+  // var lat = e.latLng.lat();
+  // var lng = e.latLng.lng();
+  // populate yor box/field with lat, lng
+  //console.log("Lat=" + lat + "; Lng=" + lng);
+ })
 
   };
 
@@ -107,6 +125,8 @@ class GoogleMap extends Component {
           markerOptions
         )
 
+  
+
         //--------------------ADD LISTENERS-----------------------//
 
         restaurant.marker.addListener('mouseover', (e) => {
@@ -146,14 +166,36 @@ class GoogleMap extends Component {
       }
 
       restaurant.marker.setVisible(true)
+
+      // let bounds = this.map.getBounds()
+      //   if (!bounds.contains(restaurant.marker.position)){
+      //   console.log("out")
+      //   }
+     
+
+    //   this.map.addListener("zoom_changed", (e) => {
+    //     let bounds = this.map.getBounds()
+    //   // let bounds = this.map.getBounds()
+    //   // if (bounds.contains(restaurant.marker.position)){
+       
+    //   //   this.visibleRestaurants.concat(restaurant)
+    //   //   this.props.setRestaurants(this.visibleRestaurants)
+    //   //   }
+    // })
+        
     })
 
+ 
+
+
+    
     // changing visible markers when restaurant array in App's state is changing (e.g star rating filter was changed)
     prevProps.restaurants.forEach(restaurant => {
       if (!this.props.restaurants.includes(restaurant)) {
         restaurant.marker.setVisible(false)
       }
     })
+
   }
 
   render() {
