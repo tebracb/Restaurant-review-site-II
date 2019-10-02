@@ -8,8 +8,7 @@ const mapStyles = {
   map: {
     position: 'absolute',
     width: '78%',
-    height: '100%',
-    mapTypeId: window.google.maps.MapTypeId.ROADMAP
+    height: '100%'
   }
 };
 
@@ -32,18 +31,6 @@ class GoogleMap extends Component {
       width: 600
     });
 
-    this.request = {
-      location: this.props.options.center,
-      radius: '100',
-      types: ["restaurant"]
-      // keyword: "restaurant"
-    };
-
-    // this.defaultImg = 
-    // if (this.props.)
-
-    // require("./img/restaurant.png")
-
   }
 
   getPlaceDetail = (placeId) => {
@@ -61,13 +48,22 @@ class GoogleMap extends Component {
       document.getElementById(this.props.id),
       this.props.options);
 
-    const service = new window.google.maps.places.PlacesService(this.map);
-    service.textSearch(this.request, this.callback);
+ //service.nearbySearch(this.request, this.callback); // giving weird results
+ this.map.addListener('idle', (e) => {
 
+  const request = {
+    location: this.map.getCenter(),
+    radius: '100',
+    types: ["restaurant"]
+    // keyword: "restaurant"
+  };
 
-
-    //service.nearbySearch(this.request, this.callback); // giving weird results
-
+  // TODO: make only 1 service (just like how we're only making 1 map)
+  const service = new window.google.maps.places.PlacesService(this.map);
+  service.textSearch(request, this.callback);
+    
+    // LatLngBounds(bounds.southeast, bounds.northeast))
+  })
 
   };
 
@@ -77,12 +73,21 @@ class GoogleMap extends Component {
       //put results to App via props (callback from child to parent)
 
       //filtering out results which don't have photo or ratings
+
       let validResults = results.filter((result) => {
-        if (result.photos || result.rating !== 0) {
+        // const bounds = this.map.getBounds();
+        // const latlng = new window.google.maps.LatLng(
+        //   result.geometry.location.lat(),
+        //   result.geometry.location.lng()
+        // );
+
+        if (result.photos && result.rating !== 0) {
+
           return result
         }
       })
       this.props.setRestaurants(validResults)
+
 
     }
   }
@@ -95,10 +100,41 @@ class GoogleMap extends Component {
   //called after state has updated
   componentDidUpdate = (prevProps) => {
 
-    var bounds = this.map.getBounds();
-    let ne = bounds.getNorthEast();
-   let sw = bounds.getSouthWest();
-    // console.log(ne,sw)
+  
+    
+
+    // restaurant.marker.addListener('click', (e) => {
+    //   this.props.setSelectedRestaurant(restaurant)
+    // })
+
+
+    // let ne = bounds.getNorthEast();
+    // let sw = bounds.getSouthWest();
+    // // console.log(ne,sw)
+
+    // // Filter places that are within the currently displayed map and save the outcome to state.
+    // // */
+    // filterPlacesInBounds() {
+    //   const LatLng = this.google.maps.LatLng;
+    //   const bounds = this.map.getBounds();
+    //   // Filter places comming from local DB that are within the map
+    //   const placesInBounds = this.state.places.filter((place) => {
+    //     const latlng = new LatLng(
+    //       place.geometry.location.lat,
+    //       place.geometry.location.lng
+    //     );
+    //     return bounds.contains(latlng);
+    //   });
+
+
+    //   console.log(this.map.getBounds().contains(restaurant.marker.getPosition()))
+
+    // this.map.addEventListener = (this.map, 'bounds_changed', () => {
+    //   if(this.map.getBounds().contains(restaurant.marker.getPosition())) {
+    //     console.log("contains")
+    //    }
+    //   })
+
 
     //    window.google.maps.event.addListener = (this.map, 'bounds_changed', () => {
     //     let bounds =  this.map.getBounds();
@@ -112,7 +148,7 @@ class GoogleMap extends Component {
     // })
     this.props.restaurants.forEach(restaurant => {
 
-      
+
       if (restaurant.marker === undefined) {
         // console.log(restaurant)
         let markerOptions = {
@@ -136,7 +172,7 @@ class GoogleMap extends Component {
         //      restaurant.photos[0]
         //   }
         // } null
-        
+
 
         restaurant.marker.addListener('mouseover', (e) => {
           let infoWindowContent = <InfoWindow
@@ -177,15 +213,10 @@ class GoogleMap extends Component {
 
       restaurant.marker.setVisible(true)
 
-      // this.map.addListener = (this.map, 'idle', () => {
-      //   if(this.map.getBounds().contains(restaurant.marker.getPosition())) {
-      //     console.log("contains")
-      //    }
-      //   })
 
     })
 
-  
+
 
     prevProps.restaurants.forEach(restaurant => {
       if (!this.props.restaurants.includes(restaurant)) {

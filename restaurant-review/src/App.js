@@ -12,7 +12,7 @@ class App extends React.Component {
       restaurants: [],
       selectedRestaurant: null,
       selectedRating: 0,
-      restaurantDetails: null
+      restaurantDetails: null,
     }
   }
 
@@ -56,8 +56,8 @@ class App extends React.Component {
       restaurantDetails: place
     })
     // console.log(place)
-
   }
+  
   render() {
 
     return (
