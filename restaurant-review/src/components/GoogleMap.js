@@ -26,7 +26,8 @@ class GoogleMap extends Component {
     super(props)
 
     this.state = {
-      showForm: false
+      showForm: false,
+      newRestaurantName: null
     }
 
     this.infoWindow = new window.google.maps.InfoWindow({
@@ -42,6 +43,11 @@ class GoogleMap extends Component {
     })
   }
 
+  getName = name => {
+    this.setState({
+      newRestaurantName: name
+    })
+  }
 
   // PLACE DETAILS API //
   getPlaceDetail = (placeId) => {
@@ -79,7 +85,7 @@ class GoogleMap extends Component {
 
  this.map.addListener("rightclick", (e) => {
   // setTimeout(ShowContextMenuGoolge, 0, ContextMenu, e);
-   new window.google.maps.Marker({
+   let newMarker = new window.google.maps.Marker({
 
     position:
     {
@@ -93,7 +99,15 @@ class GoogleMap extends Component {
     showForm: true
   })
 
+newMarker.addListener('mouseover', (e) => {
+console.log(this.state.newRestaurantName)
+// let infoWindowContent = <InfoWindow
+// name={this.getName()}
+// />
+this.infoWindow.open(this.map, newMarker);
+this.infoWindow.setContent(this.state.newRestaurantName)
 
+})
   console.log(this.state.showForm)
 
   // var lat = e.latLng.lat();
@@ -225,7 +239,10 @@ class GoogleMap extends Component {
     return (
       <div>
         <div style={mapStyles.map} id={this.props.id}/>
-      <div> {this.state.showForm ? <Form closeForm={this.closeForm} /> : null }
+      <div> {this.state.showForm ? <Form
+       closeForm={this.closeForm}
+       getName={this.getName}
+        /> : null }
       </div>
       </div>
     );

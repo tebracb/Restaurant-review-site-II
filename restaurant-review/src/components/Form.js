@@ -7,22 +7,22 @@ class Form extends React.Component {
         super(props)
 
         this.state = {
-            name: null
+            name: ''
         }
-    }
 
-    handleChange = (e) => {
-        this.setState({
-            name: e.target.name
-        })
-    }
+        this.handleChange = (e) => {
+            this.setState({
+                name: e.target.value
+            });
+            console.log(this.state.name)
+         }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.closeForm();
-        // this.props.getName(this.state.name)
-      }
-  
+         this.handleSubmit = (e) => {
+            e.preventDefault();
+            this.props.closeForm();
+            this.props.getName(this.state.name)
+          }
+    }
 
     render() {
         return (
@@ -32,7 +32,7 @@ class Form extends React.Component {
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             Name of Restaurant:
-                        <input type="text" name={this.state.name} onChange={this.handleChange} />
+                        <input type="text" value={this.state.name} onChange={this.handleChange} />
                         </label>
                         <input type="submit" value="Submit" />
                     </form>
