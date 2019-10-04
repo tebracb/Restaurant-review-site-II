@@ -1,10 +1,15 @@
 import React from "react"
-import Ratings from "react-ratings-declarative"
+import Ratings from "react-ratings-declarative";
+import ReactDOM from "react-dom";
 
 class SidebarInfo extends React.Component {
     constructor(props) {
         super(props)
     }
+
+    componentDidUpdate() {
+        ReactDOM.findDOMNode(this).scrollIntoView();
+      }
     
     render() {
         this.lat = typeof this.props.selectedRestaurant.geometry.location.lat === "function" ? this.props.selectedRestaurant.geometry.location.lat() : this.props.selectedRestaurant.geometry.location.lat

@@ -62,8 +62,8 @@ class App extends React.Component {
   render() {
 
     return (
-      <div style={{backgroundColor:"#add8e6"}}> Navbar 
-        <div />
+      // <div style={{backgroundColor:"#add8e6"}}> Navbar 
+        <div>
         <GoogleMap
 
           id="myMap"
