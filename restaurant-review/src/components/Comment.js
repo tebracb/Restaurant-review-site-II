@@ -1,6 +1,7 @@
 import React from "react"
 import "./Comment.css"
 import Ratings from "react-ratings-declarative"
+import profilePhoto from "./img/profilephoto.png"
 
 class Comment extends React.Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class Comment extends React.Component {
         return (
             <div className="commentText">
                 <div>
-                <img className="profilePhoto" src={this.props.review.profile_photo_url ? this.props.review.profile_photo_url : "/img/profilephoto.png"} />
+                <img className="profilePhoto" src={this.props.review.profile_photo_url ? this.props.review.profile_photo_url : profilePhoto} />
                     <p>{this.props.review.author_name}</p>
                     
                      <Ratings

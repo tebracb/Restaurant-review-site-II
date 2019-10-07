@@ -8,29 +8,42 @@ class OpenSidebarItem extends React.Component {
         super()
     }
 
-    // componentDidUpdate() {
-    //     if(this.ele) {
-    //         this.ele.scrollTo(0, 0);
-    //       }
-    // }
-
     render() {
 
-        if (!this.props.restaurantDetails) {
-            return null
+        let reviews = "";
+
+        // if restaurant's source is API, and there are reviews: show reviews
+        if (this.props.selectedRestaurant.place_id) {
+            // restaurant's source is API 
+            if (this.props.restaurantDetails) {
+                reviews = this.props.restaurantDetails.reviews.map(review =>
+                    <Comment
+                        key={review.author_url}
+                        review={review}
+                    />
+                )
+            } else {
+                // if restaurant's source is API, and reviews are not there yet: "Loading reviews"
+                reviews = <h2>Loading reviews...</h2>
+            }
+        } else {
+            // restaurant souce is JSON or NEW
+            if (this.props.selectedRestaurant.reviews !== 0) {
+                reviews = this.props.selectedRestaurant.reviews.map(review =>
+                    <Comment
+                        key={review.author_name}
+                        review={review}
+                    />
+                )
+            } else {
+                reviews = <h2>No reviews yet</h2>
+            }
         }
 
-        const reviews = this.props.restaurantDetails.reviews.map(review =>
-            <Comment
-                key={review.author_url}
-                review={review}
-            />
-        )
 
         return (
 
             <div>
-                {/* <div ref={(element) => { this.ele = element}} */}
                 <SidebarInfo
                     handleClick={this.props.handleClick}
                     selectedRestaurant={this.props.selectedRestaurant}

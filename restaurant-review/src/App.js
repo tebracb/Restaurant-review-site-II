@@ -23,7 +23,7 @@ class App extends React.Component {
 
     let allRestaurants = apiresults.concat(restaurantData);
     allRestaurants = allRestaurants.concat(this.state.newRestaurants)
-      console.log(allRestaurants);
+   //   console.log(allRestaurants);
 
     this.setState({
       restaurants: allRestaurants

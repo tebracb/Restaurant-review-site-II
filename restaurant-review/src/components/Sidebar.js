@@ -16,12 +16,11 @@ class Sidebar extends React.Component {
                 restaurant={restaurant}
                 restaurantDetails={this.props.restaurantDetails}
                 setSelectedRestaurant={this.props.setSelectedRestaurant}
-            // getDetails={this.props.getDetails}
             />
         )
 
-
         return (
+        
 
             this.props.selectedRestaurant === null ?
                 <div className="sidebarDiv">
@@ -36,7 +35,6 @@ class Sidebar extends React.Component {
                 :
                 <div className="sidebarDiv">
                     <OpenSidebarItem
-
                         selectedRestaurant={this.props.selectedRestaurant}
                         restaurantDetails={this.props.restaurantDetails}
                         handleClick={this.props.handleClick}

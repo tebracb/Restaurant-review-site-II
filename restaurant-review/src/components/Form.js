@@ -11,9 +11,16 @@ class Form extends React.Component {
             formatted_address: ""
         }
 
-        this.handleChange = (e) => {
+        this.handleNameChange = (e) => {
             this.setState({
                 name: e.target.value
+            });
+            //     console.log(this.state.name)
+        }
+
+        this.handleAddressChange = (e) => {
+            this.setState({
+                formatted_address: e.target.value
             });
             //     console.log(this.state.name)
         }
@@ -34,6 +41,7 @@ class Form extends React.Component {
 
                     }
                 ],
+                reviews: [],
                 formatted_address: this.state.formatted_address,
                 reference: `${this.props.newRestaurantLat}${this.props.newRestaurantLng}`
             }
@@ -53,8 +61,13 @@ class Form extends React.Component {
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             Name of Restaurant:
-                        <input type="text" value={this.state.name} onChange={this.handleChange} />
+                        <input type="text" value={this.state.name} onChange={this.handleNameChange} />
                         </label>
+                        <label>
+                            Address(optional):
+                        <input type="text" value={this.state.formatted_address} onChange={this.handleAddressChange} />
+                        </label>
+                        <br />
                         <input type="submit" value="Submit" />
                     </form>
                 </div>

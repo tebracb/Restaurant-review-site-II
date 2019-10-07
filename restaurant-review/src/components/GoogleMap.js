@@ -173,7 +173,9 @@ class GoogleMap extends Component {
       // selectedRestaurant and it's displayed in Sidebar
 
       if (this.props.selectedRestaurant && (prevProps.selectedRestaurant !== this.props.selectedRestaurant)) {
-        this.getPlaceDetail(this.props.selectedRestaurant.place_id)
+        if (this.props.selectedRestaurant.place_id) {
+          this.getPlaceDetail(this.props.selectedRestaurant.place_id)
+        }
       }
 
       // Marker changes

@@ -17,10 +17,12 @@
       ],
       "reviews": [
          {
-            "comment": "Great! But not many veggie options."
+            "author_name": "John Doe",
+            "text": "Great! But not many veggie options."
          },
          {
-            "comment": "My favorite restaurant!"
+            "author_name": "Jane Doe",
+            "text": "My favorite restaurant!"
          }
       ]
    },
@@ -42,10 +44,12 @@
       ],
       "reviews": [
          {
-            "comment": "Tiny pizzeria next to Sacre Coeur!"
+            "author_name": "John Doe",
+            "text": "Tiny pizzeria next to Sacre Coeur!"
          },
          {
-            "comment": "Meh, it was fine."
+            "author_name": "Jane Doe",
+            "text": "Meh, it was fine."
          }
       ]
    },
@@ -67,10 +71,12 @@
       ],
       "reviews": [
          {
-            "comment": "Tiny pizzeria next to Sacre Coeur!"
+            "author_name": "Jane Doe",
+            "text": "I love Babalou! My favourite place ever"
          },
          {
-            "comment": "Meh, it was fine."
+            "author_name": "John Doe",
+            "text": "Meh, it was fine."
          }
       ]
    }
