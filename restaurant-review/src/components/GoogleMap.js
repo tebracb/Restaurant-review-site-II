@@ -26,39 +26,35 @@ class GoogleMap extends Component {
     super(props)
 
     this.state = {
-      showForm: false,
-      newRestaurantName: null
+      showForm: false
     }
 
     this.infoWindow = new window.google.maps.InfoWindow({
       width: 600
     });
 
-  //  this.visibleRestaurants = [];
+    //  this.visibleRestaurants = [];
   }
 
   closeForm = () => {
     this.setState({
-      showForm:false
+      showForm: false
     })
   }
 
-  getName = name => {
-    this.setState({
-      newRestaurantName: name
-    })
-  }
 
   // PLACE DETAILS API //
   getPlaceDetail = (placeId) => {
     const placeRequest = {
       placeId: placeId,
-      fields: ['name', 'rating', 'reviews', 'place_id', 'formatted_phone_number', 'website']
+      fields: ['name', 'rating', 'reviews', 'place_id', 'formatted_phone_number', 'website', 'photos']
     };
 
     const service = new window.google.maps.places.PlacesService(this.map);
     service.getDetails(placeRequest, this.placeCallback)
   }
+
+
   componentDidMount() {
 
     this.map = new window.google.maps.Map(
@@ -83,40 +79,28 @@ class GoogleMap extends Component {
       service.textSearch(request, this.callback);
     })
 
- this.map.addListener("rightclick", (e) => {
-  // setTimeout(ShowContextMenuGoolge, 0, ContextMenu, e);
-   let newMarker = new window.google.maps.Marker({
+    this.map.addListener("rightclick", (e) => {
 
-    position:
-    {
-      lat: e.latLng.lat(),
-      lng: e.latLng.lng()
-    },
-    map: this.map
-  })
+      let newMarker = new window.google.maps.Marker({
 
-  this.setState({
-    showForm: true
-  })
+        position:
+        {
+          lat: e.latLng.lat(),
+          lng: e.latLng.lng()
+        },
+        map: this.map
+      })
 
-newMarker.addListener('mouseover', (e) => {
-console.log(this.state.newRestaurantName)
-// let infoWindowContent = <InfoWindow
-// name={this.getName()}
-// />
-this.infoWindow.open(this.map, newMarker);
-this.infoWindow.setContent(this.state.newRestaurantName)
+      this.props.getCoordinates(newMarker.position.lat(), newMarker.position.lng());
+      console.log(newMarker.position.lat())
 
-})
-  console.log(this.state.showForm)
 
-  // var lat = e.latLng.lat();
-  // var lng = e.latLng.lng();
-  // populate yor box/field with lat, lng
-  //console.log("Lat=" + lat + "; Lng=" + lng);
- })
-
-  };
+        this.setState({
+          showForm: true
+        })
+      
+    })
+  }
 
   callback = (results, status) => {
     if (status === window.google.maps.places.PlacesServiceStatus.OK) {
@@ -145,7 +129,7 @@ this.infoWindow.setContent(this.state.newRestaurantName)
 
     this.props.restaurants.forEach(restaurant => {
       if (restaurant.marker === undefined) {
-        // console.log(restaurant)
+        console.log(restaurant)
         let markerOptions = {
 
           position:
@@ -161,9 +145,14 @@ this.infoWindow.setContent(this.state.newRestaurantName)
           markerOptions
         )
 
-  
+
 
         //--------------------ADD LISTENERS-----------------------//
+
+        if (this.newMarker) {
+          restaurant.marker.push(this.newMarker)
+        }
+
 
         restaurant.marker.addListener('mouseover', (e) => {
           let infoWindowContent = <InfoWindow
@@ -175,6 +164,8 @@ this.infoWindow.setContent(this.state.newRestaurantName)
           this.infoWindow.open(this.map, restaurant.marker);
           this.infoWindow.setContent(ReactDOMServer.renderToString(infoWindowContent))
         })
+
+
 
         restaurant.marker.addListener('mouseout', (e) => {
           this.infoWindow.close();
@@ -207,24 +198,24 @@ this.infoWindow.setContent(this.state.newRestaurantName)
       //   if (!bounds.contains(restaurant.marker.position)){
       //   console.log("out")
       //   }
-     
 
-    //   this.map.addListener("zoom_changed", (e) => {
-    //     let bounds = this.map.getBounds()
-    //   // let bounds = this.map.getBounds()
-    //   // if (bounds.contains(restaurant.marker.position)){
-       
-    //   //   this.visibleRestaurants.concat(restaurant)
-    //   //   this.props.setRestaurants(this.visibleRestaurants)
-    //   //   }
-    // })
-        
+
+      //   this.map.addListener("zoom_changed", (e) => {
+      //     let bounds = this.map.getBounds()
+      //   // let bounds = this.map.getBounds()
+      //   // if (bounds.contains(restaurant.marker.position)){
+
+      //   //   this.visibleRestaurants.concat(restaurant)
+      //   //   this.props.setRestaurants(this.visibleRestaurants)
+      //   //   }
+      // })
+
     })
 
- 
 
 
-    
+
+
     // changing visible markers when restaurant array in App's state is changing (e.g star rating filter was changed)
     prevProps.restaurants.forEach(restaurant => {
       if (!this.props.restaurants.includes(restaurant)) {
@@ -238,12 +229,12 @@ this.infoWindow.setContent(this.state.newRestaurantName)
 
     return (
       <div>
-        <div style={mapStyles.map} id={this.props.id}/>
-      <div> {this.state.showForm ? <Form
-       closeForm={this.closeForm}
-       getName={this.getName}
-        /> : null }
-      </div>
+        <div style={mapStyles.map} id={this.props.id} />
+        <div> {this.state.showForm ? <Form
+          closeForm={this.closeForm}
+          getName={this.props.getName}
+        /> : null}
+        </div>
       </div>
     );
   }

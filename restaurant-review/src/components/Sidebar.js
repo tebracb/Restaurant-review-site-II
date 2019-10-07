@@ -14,6 +14,7 @@ class Sidebar extends React.Component {
             <SidebarItem
                 key={restaurant.reference}
                 restaurant={restaurant}
+                restaurantDetails={this.props.restaurantDetails}
                 setSelectedRestaurant={this.props.setSelectedRestaurant}
             // getDetails={this.props.getDetails}
             />
