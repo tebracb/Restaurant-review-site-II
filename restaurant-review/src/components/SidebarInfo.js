@@ -18,7 +18,7 @@ class SidebarInfo extends React.Component {
         return (
             <div className="restaurantInfoDiv">
                 <div className="restaurantName">
-                    <button className="closeButton" onClick={this.props.handleClick}>X</button>
+                    <button className="closeButton" onClick={this.props.handleCloseClick}>X</button>
                     <h2>{this.props.selectedRestaurant.name}</h2>
 
                     <Ratings

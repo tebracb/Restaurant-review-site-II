@@ -51,7 +51,7 @@ class App extends React.Component {
     })
   }
 
-  handleClick = () => {
+  handleCloseClick = () => {
     this.setState({
       selectedRestaurant: null,
     })
@@ -109,7 +109,7 @@ class App extends React.Component {
           restaurants={this.filterRestaurants()}
           selectedRestaurant={this.state.selectedRestaurant}
           setSelectedRestaurant={this.setSelectedRestaurant}
-          handleClick={this.handleClick}
+          handleCloseClick={this.handleCloseClick}
           restaurantDetails={this.state.restaurantDetails}
         />
 

@@ -37,7 +37,7 @@ class Sidebar extends React.Component {
                     <OpenSidebarItem
                         selectedRestaurant={this.props.selectedRestaurant}
                         restaurantDetails={this.props.restaurantDetails}
-                        handleClick={this.props.handleClick}
+                        handleCloseClick={this.props.handleCloseClick}
                     />
 
                 </div>

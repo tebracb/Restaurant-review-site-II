@@ -1,11 +1,21 @@
 import React from "react"
 import Comment from "./Comment"
 import SidebarInfo from "./SidebarInfo"
+import NewReviewForm from "./NewReviewForm"
 
 
 class OpenSidebarItem extends React.Component {
     constructor() {
         super()
+        this.state = {
+            showReviewForm: false
+        }
+    }
+
+    handleClick = () => {
+        this.setState({
+            showReviewForm: !this.state.showReviewForm
+        })
     }
 
     render() {
@@ -28,7 +38,7 @@ class OpenSidebarItem extends React.Component {
             }
         } else {
             // restaurant souce is JSON or NEW
-            if (this.props.selectedRestaurant.reviews !== 0) {
+            if (this.props.selectedRestaurant.reviews.length !== 0) {
                 reviews = this.props.selectedRestaurant.reviews.map(review =>
                     <Comment
                         key={review.author_name}
@@ -45,11 +55,17 @@ class OpenSidebarItem extends React.Component {
 
             <div>
                 <SidebarInfo
-                    handleClick={this.props.handleClick}
+                    handleCloseClick={this.props.handleCloseClick}
                     selectedRestaurant={this.props.selectedRestaurant}
                     restaurantDetails={this.props.restaurantDetails}
                 />
                 < hr />
+                <button onClick={this.handleClick}>Add Review</button>
+                {this.state.showReviewForm ?
+                <div>
+                    <NewReviewForm />
+                </div>
+                : null}
                 {reviews}
 
             </div>
