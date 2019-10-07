@@ -14,55 +14,20 @@ class App extends React.Component {
       selectedRestaurant: null,
       selectedRating: 0,
       restaurantDetails: null,
-      newRestaurantName: null,
-      newRestaurantLat: null,
-      newRestaurantLng: null
+      newRestaurants: []
     }
   }
 
-  getCoordinates = (lat, lng) => {
-    this.setState({
-      newRestaurantLat: lat,
-      newRestaurantLng: lng
-    })
-  }
   // Load the data from restaurantData.json and GooglePlaces into the state
   setRestaurants = (apiresults) => {
 
-    let allRestaurants = apiresults.concat(restaurantData)
- 
-  
-    if (this.state.newRestaurantName !== null) {
-      let newRestaurant = {
-        "name": this.state.newRestaurantName,
-        "geometry": {
-          "location": {
-            "lat": this.state.newRestaurantLat,
-            "lng": this.state.newRestaurantLng
-          }
-        },
-        "photos" : [
-          {
- 
-          }
-       ],
-        "formatted_address": "Grote Berg 4-18, 5611 KK Eindhoven",
-        "reference": "101"
-      }
-
-
-      // if(apiresults) {
-      // let trial= apiresults.concat(newRestaurant)
-      // console.log(`These: ${trial}`)
-      // }
-      allRestaurants.push(newRestaurant)
-      console.log(this.state.restaurants);
-    }
+    let allRestaurants = apiresults.concat(restaurantData);
+    allRestaurants = allRestaurants.concat(this.state.newRestaurants)
+      console.log(allRestaurants);
 
     this.setState({
       restaurants: allRestaurants
     })
-
   }
 
   //filter out restaurant below the selectedRating(star)
@@ -100,9 +65,17 @@ class App extends React.Component {
     // console.log(place)
   }
 
-  getName = name => {
+  addNewRestaurant = newRestaurant => {
+    let newRestaurants = this.state.newRestaurants
+    newRestaurants.push(newRestaurant)
     this.setState({
-      newRestaurantName: name
+      newRestaurants: newRestaurants
+    })
+
+    let restaurants = this.state.restaurants
+    restaurants.push(newRestaurant)
+    this.setState({
+      restaurants: restaurants
     })
   }
 
@@ -126,8 +99,7 @@ class App extends React.Component {
           selectedRestaurant={this.state.selectedRestaurant}
           setRestaurants={this.setRestaurants}
           getDetails={this.getDetails}
-          getName={this.getName}
-          getCoordinates={this.getCoordinates}
+          addNewRestaurant={this.addNewRestaurant}
         />
 
 

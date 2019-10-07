@@ -7,22 +7,43 @@ class Form extends React.Component {
         super(props)
 
         this.state = {
-            name: ''
+            name: "",
+            formatted_address: ""
         }
 
         this.handleChange = (e) => {
             this.setState({
                 name: e.target.value
             });
-            console.log(this.state.name)
-         }
+            //     console.log(this.state.name)
+        }
 
-         this.handleSubmit = (e) => {
+
+        this.handleSubmit = (e) => {
             e.preventDefault();
+            let newRestaurant = {
+                name: this.state.name,
+                geometry: {
+                    location: {
+                        lat: this.props.newRestaurantLat,
+                        lng: this.props.newRestaurantLng
+                    }
+                },
+                photos: [
+                    {
+
+                    }
+                ],
+                formatted_address: this.state.formatted_address,
+                reference: `${this.props.newRestaurantLat}${this.props.newRestaurantLng}`
+            }
+
+
             this.props.closeForm();
-            this.props.getName(this.state.name)
-          }
+            this.props.addNewRestaurant(newRestaurant)
+        }
     }
+
 
     render() {
         return (

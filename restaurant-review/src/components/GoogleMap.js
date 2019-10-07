@@ -26,7 +26,9 @@ class GoogleMap extends Component {
     super(props)
 
     this.state = {
-      showForm: false
+      showForm: false,
+      newRestaurantLat: "",
+      newRestaurantLng: ""
     }
 
     this.infoWindow = new window.google.maps.InfoWindow({
@@ -81,24 +83,15 @@ class GoogleMap extends Component {
 
     this.map.addListener("rightclick", (e) => {
 
-      let newMarker = new window.google.maps.Marker({
+      let lat = e.latLng.lat();
+      let lng = e.latLng.lng()
 
-        position:
-        {
-          lat: e.latLng.lat(),
-          lng: e.latLng.lng()
-        },
-        map: this.map
+      this.setState({
+        showForm: true,
+        newRestaurantLat: lat,
+        newRestaurantLng: lng
       })
 
-      this.props.getCoordinates(newMarker.position.lat(), newMarker.position.lng());
-      console.log(newMarker.position.lat())
-
-
-        this.setState({
-          showForm: true
-        })
-      
     })
   }
 
@@ -129,7 +122,7 @@ class GoogleMap extends Component {
 
     this.props.restaurants.forEach(restaurant => {
       if (restaurant.marker === undefined) {
-        console.log(restaurant)
+        // console.log(restaurant)
         let markerOptions = {
 
           position:
@@ -213,9 +206,6 @@ class GoogleMap extends Component {
     })
 
 
-
-
-
     // changing visible markers when restaurant array in App's state is changing (e.g star rating filter was changed)
     prevProps.restaurants.forEach(restaurant => {
       if (!this.props.restaurants.includes(restaurant)) {
@@ -232,7 +222,9 @@ class GoogleMap extends Component {
         <div style={mapStyles.map} id={this.props.id} />
         <div> {this.state.showForm ? <Form
           closeForm={this.closeForm}
-          getName={this.props.getName}
+          newRestaurantLat={this.state.newRestaurantLat}
+          newRestaurantLng={this.state.newRestaurantLng}
+          addNewRestaurant={this.props.addNewRestaurant}
         /> : null}
         </div>
       </div>
