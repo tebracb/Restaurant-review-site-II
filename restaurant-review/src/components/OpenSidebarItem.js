@@ -18,6 +18,12 @@ class OpenSidebarItem extends React.Component {
         })
     }
 
+    closeReviewForm = () => {
+        this.setState({
+            showReviewForm: false
+        })
+    }
+
     render() {
 
         let reviews = "";
@@ -63,7 +69,10 @@ class OpenSidebarItem extends React.Component {
                 <button onClick={this.handleClick}>Add Review</button>
                 {this.state.showReviewForm ?
                 <div>
-                    <NewReviewForm />
+                    <NewReviewForm 
+                    addNewReview={this.props.addNewReview}
+                    closeReviewForm={this.closeReviewForm}
+                    />
                 </div>
                 : null}
                 {reviews}

@@ -1,8 +1,8 @@
 import React from "react"
-import "./Form.css"
+import "./NewRestaurantForm.css"
 
 
-class Form extends React.Component {
+class NewRestaurantForm extends React.Component {
     constructor(props) {
         super(props)
 
@@ -77,4 +77,4 @@ class Form extends React.Component {
     }
 }
 
-export default Form
+export default NewRestaurantForm

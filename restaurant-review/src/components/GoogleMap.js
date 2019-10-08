@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import InfoWindow from "./InfoWindow.js"
 import ReactDOMServer from "react-dom/server"
-import Form from "./Form"
+import NewRestaurantForm from "./NewRestaurantForm"
 
 const mapStyles = {
   map: {
@@ -222,7 +222,7 @@ class GoogleMap extends Component {
     return (
       <div>
         <div style={mapStyles.map} id={this.props.id} />
-        <div> {this.state.showForm ? <Form
+        <div> {this.state.showForm ? <NewRestaurantForm
           closeForm={this.closeForm}
           newRestaurantLat={this.state.newRestaurantLat}
           newRestaurantLng={this.state.newRestaurantLng}

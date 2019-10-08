@@ -38,6 +38,7 @@ class Sidebar extends React.Component {
                         selectedRestaurant={this.props.selectedRestaurant}
                         restaurantDetails={this.props.restaurantDetails}
                         handleCloseClick={this.props.handleCloseClick}
+                        addNewReview={this.props.addNewReview}
                     />
 
                 </div>

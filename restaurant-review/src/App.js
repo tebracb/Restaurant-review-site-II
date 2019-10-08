@@ -23,7 +23,7 @@ class App extends React.Component {
 
     let allRestaurants = apiresults.concat(restaurantData);
     allRestaurants = allRestaurants.concat(this.state.newRestaurants)
-   //   console.log(allRestaurants);
+    //   console.log(allRestaurants);
 
     this.setState({
       restaurants: allRestaurants
@@ -79,6 +79,24 @@ class App extends React.Component {
     })
   }
 
+  addNewReview = newReview => {
+
+    //if restaurant is from JSON or added by the user  
+    if (this.state.selectedRestaurant.reviews !== undefined) {
+      let selectedRestaurantCopy = this.state.selectedRestaurant
+      selectedRestaurantCopy.reviews.unshift(newReview)
+
+      this.setState({
+        selectedRestaurant: selectedRestaurantCopy
+      })
+    }
+
+    else {
+      console.log("no review")
+    }
+  }
+
+
   render() {
 
     return (
@@ -111,6 +129,7 @@ class App extends React.Component {
           setSelectedRestaurant={this.setSelectedRestaurant}
           handleCloseClick={this.handleCloseClick}
           restaurantDetails={this.state.restaurantDetails}
+          addNewReview={this.addNewReview}
         />
 
       </div>

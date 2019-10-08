@@ -27,6 +27,9 @@ class NewReviewForm extends React.Component {
                 author_name: this.state.name,
                 text: this.state.text
             }
+            this.props.addNewReview(newReview);
+            this.props.closeReviewForm()
+
         }
     }
 
@@ -40,7 +43,7 @@ class NewReviewForm extends React.Component {
                 <br />
                 <label>
                     Review:
-            <input type="text" value={this.state.text} onChange={this.handleReviewChange} />
+            <textarea value={this.state.text} onChange={this.handleReviewChange} />
                 </label>
                 <br />
                 <input type="submit" value="Submit" />
