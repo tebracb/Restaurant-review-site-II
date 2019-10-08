@@ -28,12 +28,19 @@ class GoogleMap extends Component {
     this.state = {
       showForm: false,
       newRestaurantLat: "",
-      newRestaurantLng: ""
+      newRestaurantLng: "",
+      mapCenter: ""
     }
 
     this.infoWindow = new window.google.maps.InfoWindow({
       width: 600
     });
+
+    this.mapOptions = {
+      center: this.state.mapCenter ? this.state.mapCenter : { lat: 51.442, lng: 5.469 },
+      zoom: 14
+    }
+
 
     //  this.visibleRestaurants = [];
   }
@@ -56,12 +63,53 @@ class GoogleMap extends Component {
     service.getDetails(placeRequest, this.placeCallback)
   }
 
+  // displayLocationInfo = (position) => {
+  //   const lng = position.coords.longitude;
+  //   const lat = position.coords.latitude;
+  //   this.setState({
+  //     mapCenter: `${lat},${lng}`
+  //   })
+  // }
 
   componentDidMount() {
 
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(this.displayLocationInfo);
+    // } else {
+    //   console.log("no")
+    // }
+   
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        let pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+   
+        this.setState({
+          mapCenter: pos
+        })
+       let locationMarker = new window.google.maps.Marker({
+          position:pos,
+          map:this.map,
+          icon: require("./img/map-pin.png")
+        });
+        let locationInfo = new window.google.maps.InfoWindow;
+        locationMarker.addListener('mouseover', (e) => {
+        locationInfo.setContent("You are here")
+        locationInfo.open(this.map, locationMarker);
+      })
+
+        // infoWindow.setPosition(pos);
+        // infoWindow.setContent('Location found.');
+        // infoWindow.open(this.map);
+      })
+    }
+
     this.map = new window.google.maps.Map(
       document.getElementById(this.props.id),
-      this.props.options);
+      this.mapOptions);
+    
 
     // GOOGLE PLACES API  
     //- sending new request every time user changes bounds on the map//
@@ -119,7 +167,7 @@ class GoogleMap extends Component {
 
   //called after state has updated
   componentDidUpdate = (prevProps) => {
-
+  console.log(this.state.mapCenter)
     this.props.restaurants.forEach(restaurant => {
       if (restaurant.marker === undefined) {
         // console.log(restaurant)

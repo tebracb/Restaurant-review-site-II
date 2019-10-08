@@ -14,7 +14,8 @@ class App extends React.Component {
       selectedRestaurant: null,
       selectedRating: 0,
       restaurantDetails: null,
-      newRestaurants: []
+      newRestaurants: [],
+     // mapCenter: ""
     }
   }
 
@@ -93,13 +94,6 @@ class App extends React.Component {
 
     //if restaurant comes from the API and reviews from the Place Details API
     else {
-      //console.log(this.state.restaurantDetails.reviews)
-      // let restaurantDetailsCopy = this.state.restaurantDetails;
-      // restaurantDetailsCopy.reviews.unshift(newReview)
-
-      // this.setState({
-      //   restaurantDetails: restaurantDetailsCopy
-      // })
       let selectedRestaurantCopy = this.state.selectedRestaurant;
       selectedRestaurantCopy["reviews"] = [];
       selectedRestaurantCopy.reviews.unshift(newReview)
@@ -111,6 +105,7 @@ class App extends React.Component {
   }
 
 
+
   render() {
 
     return (
@@ -119,10 +114,10 @@ class App extends React.Component {
         <GoogleMap
 
           id="myMap"
-          options={{
-            center: { lat: 51.442, lng: 5.469 },
-            zoom: 14
-          }}
+          // options={{
+          //   center: this.state.mapCenter ? this.state.mapCenter : { lat: 51.442, lng: 5.469 },
+          //   zoom: 14
+          // }}
 
 
           // pass state as props to GoogleMap
