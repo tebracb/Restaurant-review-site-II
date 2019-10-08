@@ -73,7 +73,7 @@ class App extends React.Component {
     })
 
     let restaurants = this.state.restaurants
-    restaurants.push(newRestaurant)
+    restaurants.unshift(newRestaurant)
     this.setState({
       restaurants: restaurants
     })
@@ -83,7 +83,7 @@ class App extends React.Component {
 
     //if restaurant is from JSON or added by the user  
     if (this.state.selectedRestaurant.reviews !== undefined) {
-      let selectedRestaurantCopy = this.state.selectedRestaurant
+      let selectedRestaurantCopy = this.state.selectedRestaurant;
       selectedRestaurantCopy.reviews.unshift(newReview)
 
       this.setState({
@@ -91,8 +91,22 @@ class App extends React.Component {
       })
     }
 
+    //if restaurant comes from the API and reviews from the Place Details API
     else {
-      console.log("no review")
+      //console.log(this.state.restaurantDetails.reviews)
+      // let restaurantDetailsCopy = this.state.restaurantDetails;
+      // restaurantDetailsCopy.reviews.unshift(newReview)
+
+      // this.setState({
+      //   restaurantDetails: restaurantDetailsCopy
+      // })
+      let selectedRestaurantCopy = this.state.selectedRestaurant;
+      selectedRestaurantCopy["reviews"] = [];
+      selectedRestaurantCopy.reviews.unshift(newReview)
+      console.log(selectedRestaurantCopy.reviews)
+      this.setState({
+        selectedRestaurant: selectedRestaurantCopy
+      })
     }
   }
 

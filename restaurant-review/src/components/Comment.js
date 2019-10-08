@@ -6,13 +6,20 @@ import profilePhoto from "./img/profilephoto.png"
 class Comment extends React.Component {
     constructor(props) {
         super(props)
+
+        this.src = this.props.review.profile_photo_url ? this.props.review.profile_photo_url : profilePhoto
     }
+
+    handleError = (e) => {
+        this.src=profilePhoto
+    }
+
 
     render() {
         return (
             <div className="commentText">
                 <div>
-                <img className="profilePhoto" src={this.props.review.profile_photo_url ? this.props.review.profile_photo_url : profilePhoto} />
+                <img onError={this.handleError} className="profilePhoto" src={this.src} />
                     <p>{this.props.review.author_name}</p>
                     
                      <Ratings

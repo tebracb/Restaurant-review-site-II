@@ -1,12 +1,15 @@
 import React from "react"
+import Ratings from "react-ratings-declarative"
 
 class NewReviewForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             name: "",
-            text: ""
+            text: "",
+            rating: 0
         }
+    
 
         this.handleNameChange = (e) => {
             this.setState({
@@ -25,13 +28,19 @@ class NewReviewForm extends React.Component {
 
             let newReview = {
                 author_name: this.state.name,
-                text: this.state.text
+                text: this.state.text,
+                rating: this.state.rating
             }
             this.props.addNewReview(newReview);
             this.props.closeReviewForm()
-
         }
+
+        this.changeRating = newRating => {
+            this.setState({
+              rating: newRating
+            });
     }
+}
 
     render() {
         return (
@@ -46,6 +55,22 @@ class NewReviewForm extends React.Component {
             <textarea value={this.state.text} onChange={this.handleReviewChange} />
                 </label>
                 <br />
+                
+                
+                <Ratings
+                    rating={this.state.rating}
+                    widgetHoverColor="#FFD300"
+                    widgetRatedColors="#D4AF37"
+                    changeRating={this.changeRating}
+                    widgetDimensions="30px"
+                >
+                    <Ratings.Widget widgetHoverColor="#FFD300" />
+                    <Ratings.Widget widgetHoverColor="#FFD300" />
+                    <Ratings.Widget widgetHoverColor="#FFD300" />
+                    <Ratings.Widget widgetHoverColor="#FFD300" />
+                    {/* widgetHoverColor="black"  */}
+                    <Ratings.Widget widgetHoverColor="#FFD300" />
+                </Ratings>
                 <input type="submit" value="Submit" />
             </form>
         )

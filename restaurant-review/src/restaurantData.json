@@ -18,11 +18,13 @@
       "reviews": [
          {
             "author_name": "John Doe",
-            "text": "Great! But not many veggie options."
+            "text": "Hate it, not many veggie options.",
+            "rating": 3
          },
          {
             "author_name": "Jane Doe",
-            "text": "My favorite restaurant!"
+            "text": "My favorite restaurant!",
+            "rating": 4
          }
       ]
    },
@@ -36,7 +38,7 @@
             "lng":5.477213
          }
       },
-      "rating": 2.6,
+      "rating": 2.5,
       "photos": [
          {
 
@@ -45,11 +47,13 @@
       "reviews": [
          {
             "author_name": "John Doe",
-            "text": "Best fish in town. Can recommend!"
+            "text": "Best fish in town. Can recommend!",
+            "rating":5
          },
          {
             "author_name": "Jane Doe",
-            "text": "Meh, it was fine."
+            "text": "Meh, it was fine.",
+            "rating": 3
          }
       ]
    },
@@ -72,11 +76,13 @@
       "reviews": [
          {
             "author_name": "Jane Doe",
-            "text": "I love Babalou! My favourite place ever"
+            "text": "I love Babalou! My favourite place ever",
+            "rating": 4
          },
          {
             "author_name": "John Doe",
-            "text": "Meh, it was fine."
+            "text": "Meh, it was fine.",
+            "rating": 3
          }
       ]
    }
