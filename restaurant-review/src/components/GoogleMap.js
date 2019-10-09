@@ -7,7 +7,7 @@ const mapStyles = {
   map: {
     position: 'absolute',
     width: '78%',
-    height: '95%',
+    height: '94%',
     bottom: '0'
   }
 };
@@ -78,45 +78,45 @@ class GoogleMap extends Component {
     // } else {
     //   console.log("no")
     // }
-   
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         let pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-   
+
         this.setState({
           mapCenter: pos
         })
-       let locationMarker = new window.google.maps.Marker({
-          position:pos,
-          map:this.map,
-          icon: require("./img/map-pin.png")
+        let locationMarker = new window.google.maps.Marker({
+          position: pos,
+          map: this.map,
+          icon: require("./img/map-pin2.png")
         });
         let locationInfo = new window.google.maps.InfoWindow;
         locationMarker.addListener('mouseover', (e) => {
-        locationInfo.setContent("You are here")
-        locationInfo.open(this.map, locationMarker);
-      })
+          locationInfo.setContent("You are here")
+          locationInfo.open(this.map, locationMarker);
+        })
 
-        // infoWindow.setPosition(pos);
-        // infoWindow.setContent('Location found.');
-        // infoWindow.open(this.map);
+        locationMarker.addListener('mouseout', (e) => {
+          locationInfo.close();
+        })
       })
     }
 
     this.map = new window.google.maps.Map(
       document.getElementById(this.props.id),
       this.mapOptions);
-    
+
 
     // GOOGLE PLACES API  
     //- sending new request every time user changes bounds on the map//
     this.map.addListener('idle', (e) => {
       const request = {
         location: this.map.getCenter(),
-        radius: '100',
+        radius: '50',
         //bounds: this.map.getBounds(),
         types: ["restaurant"]
         // keyword: "restaurant"
@@ -167,7 +167,7 @@ class GoogleMap extends Component {
 
   //called after state has updated
   componentDidUpdate = (prevProps) => {
-  console.log(this.state.mapCenter)
+    console.log(this.state.mapCenter)
     this.props.restaurants.forEach(restaurant => {
       if (restaurant.marker === undefined) {
         // console.log(restaurant)
@@ -269,6 +269,7 @@ class GoogleMap extends Component {
 
     return (
       <div>
+         {/* <div style={{backgroundColor:"#add8e6"}}> Navbar</div> */}
         <div style={mapStyles.map} id={this.props.id} />
         <div> {this.state.showForm ? <NewRestaurantForm
           closeForm={this.closeForm}
@@ -277,7 +278,7 @@ class GoogleMap extends Component {
           addNewRestaurant={this.props.addNewRestaurant}
         /> : null}
         </div>
-      </div>
+        </div>
     );
   }
 }

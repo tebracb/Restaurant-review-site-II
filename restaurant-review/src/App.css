@@ -1,0 +1,28 @@
+.Navbar {
+    width: 78%;
+    height: 6%;
+    position: absolute;
+    top: 0;
+    /* background-color: antiquewhite; */
+    margin: 0px;
+
+}
+
+.Navbar h2 {
+   margin:  auto;
+   font-family: 'Mansalva', cursive;
+}
+
+.Navbar span {
+   font-size: 18px;
+   font-weight: 300;
+   font-family: 'Montserrat', sans-serif;
+   
+}
+
+.logo{
+   width: 3%;
+   float: left;
+   display: block;
+   margin: 5px 10px;
+}

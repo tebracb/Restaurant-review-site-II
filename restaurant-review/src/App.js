@@ -2,6 +2,7 @@ import React from 'react';
 import GoogleMap from "./components/GoogleMap";
 import restaurantData from "./restaurantData.json"
 import Sidebar from "./components/Sidebar"
+import "./App.css"
 
 
 class App extends React.Component {
@@ -17,6 +18,8 @@ class App extends React.Component {
       newRestaurants: [],
      // mapCenter: ""
     }
+
+    this.logo = require("./components/img/lasagna.png")
   }
 
   // Load the data from restaurantData.json and GooglePlaces into the state
@@ -109,8 +112,14 @@ class App extends React.Component {
   render() {
 
     return (
-      // <div style={{backgroundColor:"#add8e6"}}> Navbar 
-      <div>
+    <div>
+     <div className="Navbar">
+     
+    <img className="logo" src= {this.logo} />
+    <h2>Lasagna! <span>- the No 1 restaurant rating app</span></h2>
+       
+     </div>
+      
         <GoogleMap
 
           id="myMap"
