@@ -17,7 +17,7 @@ class Comment extends React.Component {
 
     render() {
         return (
-            <div className="commentText">
+            <div className="commentDiv">
                 <div>
                 <img onError={this.handleError} className="profilePhoto" src={this.src} />
                     <p>{this.props.review.author_name}</p>
@@ -42,7 +42,7 @@ class Comment extends React.Component {
                 <div>
                     <p>{this.props.review.text}</p>
                 </div>
-                <hr />
+                {/* <hr /> */}
             </div>
         )
     }

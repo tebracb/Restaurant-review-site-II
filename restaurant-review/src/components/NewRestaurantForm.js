@@ -50,6 +50,11 @@ class NewRestaurantForm extends React.Component {
             this.props.closeForm();
             this.props.addNewRestaurant(newRestaurant)
         }
+
+        this.closeForm =() => {
+            this.props.closeForm();
+        }
+
     }
 
 
@@ -69,6 +74,7 @@ class NewRestaurantForm extends React.Component {
                         </label>
                         <br />
                         <input type="submit" value="Submit" />
+                        <button onClick={this.closeForm}>Cancel</button> 
                     </form>
                 </div>
 
