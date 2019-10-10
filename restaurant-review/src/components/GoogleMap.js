@@ -141,6 +141,11 @@ class GoogleMap extends Component {
       })
 
     })
+
+    document.body.addEventListener("contextmenu", function(e) {
+      e.preventDefault();
+      return false;
+    });
   }
 
   callback = (results, status) => {
@@ -167,7 +172,7 @@ class GoogleMap extends Component {
 
   //called after state has updated
   componentDidUpdate = (prevProps) => {
-    console.log(this.state.mapCenter)
+    //console.log(this.state.mapCenter)
     this.props.restaurants.forEach(restaurant => {
       if (restaurant.marker === undefined) {
         // console.log(restaurant)

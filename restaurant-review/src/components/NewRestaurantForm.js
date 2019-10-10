@@ -62,19 +62,25 @@ class NewRestaurantForm extends React.Component {
         return (
             <div className="formDiv">
                 <div className="formContent">
-                    <h1>Form</h1>
+                    <h1>Add a new restaurant:</h1>
                     <form onSubmit={this.handleSubmit}>
+                        <div className="fields">
                         <label>
-                            Name of Restaurant:
-                        <input type="text" value={this.state.name} onChange={this.handleNameChange} />
-                        </label>
-                        <label>
-                            Address(optional):
-                        <input type="text" value={this.state.formatted_address} onChange={this.handleAddressChange} />
+                            Name of restaurant:
+                        <input className="input" type="text" value={this.state.name} onChange={this.handleNameChange} />
                         </label>
                         <br />
-                        <input type="submit" value="Submit" />
-                        <button onClick={this.closeForm}>Cancel</button> 
+                        <label>
+                            Address(optional):
+                        <input className="input" type="text" value={this.state.formatted_address} onChange={this.handleAddressChange} />
+                        
+                        </label>
+                        </div>
+                        <br />
+                        <div className="buttonDiv">
+                        <input className="button" type="submit" value="Submit" />
+                        <button className="button" onClick={this.closeForm}>Cancel</button> 
+                        </div>
                     </form>
                 </div>
 
