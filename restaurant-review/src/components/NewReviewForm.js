@@ -1,5 +1,6 @@
 import React from "react"
 import Ratings from "react-ratings-declarative"
+import "./NewReviewForm.css"
 
 class NewReviewForm extends React.Component {
     constructor(props) {
@@ -45,14 +46,14 @@ class NewReviewForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <label>
+                <label className="reviewLabel">
                     Name:
-            <input type="text" value={this.state.name} onChange={this.handleNameChange} />
+            <input type="text" className="reviewInput" value={this.state.name} onChange={this.handleNameChange} />
                 </label>
                 <br />
-                <label>
+                <label className="reviewLabel" >
                     Review:
-            <textarea value={this.state.text} onChange={this.handleReviewChange} />
+            <textarea value={this.state.text} className="reviewInput" onChange={this.handleReviewChange} />
                 </label>
                 <br />
                 

@@ -46,9 +46,7 @@
 
 .fields{
     width: 500px;
-    margin-left: 70px;
-
-   
+    margin-left: 70px;   
 }
 
 .buttonDiv{
@@ -60,12 +58,10 @@
     width: 250px;
     float: right;
     border-radius: 4px;
-    
 }
 
 label{
     width : 150px;
-
     text-align: right;
  
     -webkit-box-sizing: border-box; 

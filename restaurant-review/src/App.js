@@ -16,6 +16,7 @@ class App extends React.Component {
       selectedRating: 0,
       restaurantDetails: null,
       newRestaurants: [],
+      bounds: ""
      // mapCenter: ""
     }
 
@@ -37,7 +38,7 @@ class App extends React.Component {
   //filter out restaurant below the selectedRating(star)
   filterRestaurants = () => this.state.restaurants.filter((restaurant) => {
     return (
-      restaurant.rating >= this.state.selectedRating || (restaurant.rating === undefined)
+      (restaurant.rating >= this.state.selectedRating || (restaurant.rating === undefined)) && (this.state.bounds.contains(restaurant.geometry.location))
     )
   })
 
@@ -53,6 +54,13 @@ class App extends React.Component {
     this.setState({
       selectedRating: newRating
     })
+  }
+
+  setBounds = bounds => {
+    this.setState({
+      bounds:bounds
+    })
+    console.log(bounds)
   }
 
   handleCloseClick = () => {
@@ -136,6 +144,7 @@ class App extends React.Component {
           setRestaurants={this.setRestaurants}
           getDetails={this.getDetails}
           addNewRestaurant={this.addNewRestaurant}
+          setBounds={this.setBounds}
         />
 
 

@@ -1,0 +1,12 @@
+.reviewLabel {
+    line-height: 2em;
+}
+
+.reviewInput {
+    border-radius: 4px;
+    line-height: 2em;
+    float: right;
+    width: 200px;
+    padding: 1px;
+    margin-right: 10px;
+}

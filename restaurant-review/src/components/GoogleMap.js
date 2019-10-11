@@ -114,16 +114,19 @@ class GoogleMap extends Component {
     // GOOGLE PLACES API  
     //- sending new request every time user changes bounds on the map//
     this.map.addListener('idle', (e) => {
+      
       const request = {
         location: this.map.getCenter(),
-        radius: '50',
+        radius: 50,
         //bounds: this.map.getBounds(),
         types: ["restaurant"]
         // keyword: "restaurant"
 
         //service.nearbySearch(this.request, this.callback); // giving weird results
       };
-
+      let bounds = this.map.getBounds()
+      this.props.setBounds(bounds) 
+      
       // TODO: make only 1 service (just like how we're only making 1 map)
       const service = new window.google.maps.places.PlacesService(this.map);
       service.textSearch(request, this.callback);
@@ -169,6 +172,9 @@ class GoogleMap extends Component {
       this.props.getDetails(place)
     }
   }
+
+  
+  
 
   //called after state has updated
   componentDidUpdate = (prevProps) => {
@@ -242,21 +248,7 @@ class GoogleMap extends Component {
 
       restaurant.marker.setVisible(true)
 
-      // let bounds = this.map.getBounds()
-      //   if (!bounds.contains(restaurant.marker.position)){
-      //   console.log("out")
-      //   }
 
-
-      //   this.map.addListener("zoom_changed", (e) => {
-      //     let bounds = this.map.getBounds()
-      //   // let bounds = this.map.getBounds()
-      //   // if (bounds.contains(restaurant.marker.position)){
-
-      //   //   this.visibleRestaurants.concat(restaurant)
-      //   //   this.props.setRestaurants(this.visibleRestaurants)
-      //   //   }
-      // })
 
     })
 
