@@ -28,14 +28,14 @@ class App extends React.Component {
 
     let allRestaurants = apiresults.concat(restaurantData);
     allRestaurants = allRestaurants.concat(this.state.newRestaurants)
-    //   console.log(allRestaurants);
+
 
     this.setState({
       restaurants: allRestaurants
     })
   }
 
-  //filter out restaurant below the selectedRating(star)
+  //filter out restaurant below the selectedRating(star) and restaurants outside the bounds of the map
   filterRestaurants = () => this.state.restaurants.filter((restaurant) => {
     return (
       (restaurant.rating >= this.state.selectedRating || (restaurant.rating === undefined)) && (this.state.bounds.contains(restaurant.geometry.location))
@@ -60,7 +60,7 @@ class App extends React.Component {
     this.setState({
       bounds:bounds
     })
-    console.log(bounds)
+
   }
 
   handleCloseClick = () => {

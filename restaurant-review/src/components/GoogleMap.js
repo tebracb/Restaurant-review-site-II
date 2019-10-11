@@ -28,21 +28,15 @@ class GoogleMap extends Component {
     this.state = {
       showForm: false,
       newRestaurantLat: "",
-      newRestaurantLng: "",
-      mapCenter: ""
+      newRestaurantLng: ""
     }
 
     this.infoWindow = new window.google.maps.InfoWindow({
       width: 600
     });
 
-    this.mapOptions = {
-      center: this.state.mapCenter ? this.state.mapCenter : { lat: 51.442, lng: 5.469 },
-      zoom: 14
-    }
+    this.mapCenter = "";
 
-
-    //  this.visibleRestaurants = [];
   }
 
   closeForm = () => {
@@ -63,92 +57,96 @@ class GoogleMap extends Component {
     service.getDetails(placeRequest, this.placeCallback)
   }
 
-  // displayLocationInfo = (position) => {
-  //   const lng = position.coords.longitude;
-  //   const lat = position.coords.latitude;
-  //   this.setState({
-  //     mapCenter: `${lat},${lng}`
-  //   })
-  // }
 
   componentDidMount() {
 
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition(this.displayLocationInfo);
-    // } else {
-    //   console.log("no")
-    // }
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        let pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+    let createMap = () => {
+      this.map = new window.google.maps.Map(
+        document.getElementById(this.props.id),
+        {
+          center: this.mapCenter,
+          zoom: 14
+        });
+
+
+      // GOOGLE PLACES API  
+      //- sending new request every time user changes bounds on the map//
+      this.map.addListener('idle', (e) => {
+
+        const request = {
+          location: this.map.getCenter(),
+          radius: "50",
+          types: ["restaurant"]
+          // keyword: "restaurant"
+
+          //service.nearbySearch(this.request, this.callback); // giving weird results
         };
+        let bounds = this.map.getBounds()
+        this.props.setBounds(bounds)
+
+        // TODO: make only 1 service (just like how we're only making 1 map)
+        const service = new window.google.maps.places.PlacesService(this.map);
+        service.textSearch(request, this.callback);
+      })
+
+      this.map.addListener("rightclick", (e) => {
+
+        let lat = e.latLng.lat();
+        let lng = e.latLng.lng()
 
         this.setState({
-          mapCenter: pos
-        })
-        let locationMarker = new window.google.maps.Marker({
-          position: pos,
-          map: this.map,
-          icon: require("./img/map-pin2.png")
-        });
-        let locationInfo = new window.google.maps.InfoWindow;
-        locationMarker.addListener('mouseover', (e) => {
-          locationInfo.setContent("You are here")
-          locationInfo.open(this.map, locationMarker);
+          showForm: true,
+          newRestaurantLat: lat,
+          newRestaurantLng: lng
         })
 
-        locationMarker.addListener('mouseout', (e) => {
-          locationInfo.close();
-        })
       })
+
+      document.body.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+        return false;
+      });
     }
 
-    this.map = new window.google.maps.Map(
-      document.getElementById(this.props.id),
-      this.mapOptions);
+    let onGeolocationSuccess = (position) => {
+
+      let pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+
+      this.mapCenter = pos;
+      createMap();
+
+      let locationMarker = new window.google.maps.Marker({
+        position: pos,
+        map: this.map,
+        icon: require("./img/map-pin2.png")
+      });
+
+      let locationInfo = new window.google.maps.InfoWindow;
+      locationMarker.addListener('mouseover', (e) => {
+        locationInfo.setContent("You are here")
+        locationInfo.open(this.map, locationMarker);
+      });
+
+      locationMarker.addListener('mouseout', (e) => {
+        locationInfo.close();
+      });
+
+    }
+
+    let onGeolocationError = () => {
+      this.mapCenter = { lat: 51.442, lng: 5.469 }
+      createMap();
+    }
 
 
-    // GOOGLE PLACES API  
-    //- sending new request every time user changes bounds on the map//
-    this.map.addListener('idle', (e) => {
-      
-      const request = {
-        location: this.map.getCenter(),
-        radius: 50,
-        //bounds: this.map.getBounds(),
-        types: ["restaurant"]
-        // keyword: "restaurant"
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError)
+    }
 
-        //service.nearbySearch(this.request, this.callback); // giving weird results
-      };
-      let bounds = this.map.getBounds()
-      this.props.setBounds(bounds) 
-      
-      // TODO: make only 1 service (just like how we're only making 1 map)
-      const service = new window.google.maps.places.PlacesService(this.map);
-      service.textSearch(request, this.callback);
-    })
-
-    this.map.addListener("rightclick", (e) => {
-
-      let lat = e.latLng.lat();
-      let lng = e.latLng.lng()
-
-      this.setState({
-        showForm: true,
-        newRestaurantLat: lat,
-        newRestaurantLng: lng
-      })
-
-    })
-
-    document.body.addEventListener("contextmenu", function(e) {
-      e.preventDefault();
-      return false;
-    });
   }
 
   callback = (results, status) => {
@@ -173,17 +171,14 @@ class GoogleMap extends Component {
     }
   }
 
-  
-  
 
   //called after state has updated
   componentDidUpdate = (prevProps) => {
-    //console.log(this.state.mapCenter)
+
     this.props.restaurants.forEach(restaurant => {
       if (restaurant.marker === undefined) {
-        // console.log(restaurant)
+    
         let markerOptions = {
-
           position:
           //checking if lat is a function (when coming from API); otherwise add regular lat,lng (when coming from JSON)
           {
@@ -196,8 +191,6 @@ class GoogleMap extends Component {
         restaurant.marker = new window.google.maps.Marker(
           markerOptions
         )
-
-
 
         //--------------------ADD LISTENERS-----------------------//
 
@@ -216,8 +209,6 @@ class GoogleMap extends Component {
           this.infoWindow.open(this.map, restaurant.marker);
           this.infoWindow.setContent(ReactDOMServer.renderToString(infoWindowContent))
         })
-
-
 
         restaurant.marker.addListener('mouseout', (e) => {
           this.infoWindow.close();
@@ -247,9 +238,6 @@ class GoogleMap extends Component {
       }
 
       restaurant.marker.setVisible(true)
-
-
-
     })
 
 
@@ -266,7 +254,7 @@ class GoogleMap extends Component {
 
     return (
       <div>
-         {/* <div style={{backgroundColor:"#add8e6"}}> Navbar</div> */}
+        {/* <div style={{backgroundColor:"#add8e6"}}> Navbar</div> */}
         <div style={mapStyles.map} id={this.props.id} />
         <div> {this.state.showForm ? <NewRestaurantForm
           closeForm={this.closeForm}
@@ -275,7 +263,7 @@ class GoogleMap extends Component {
           addNewRestaurant={this.props.addNewRestaurant}
         /> : null}
         </div>
-        </div>
+      </div>
     );
   }
 }
