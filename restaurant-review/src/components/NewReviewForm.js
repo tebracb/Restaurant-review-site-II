@@ -57,7 +57,7 @@ class NewReviewForm extends React.Component {
                 </label>
                 <br />
                 
-                
+                <div className="reviewRatingsDiv">
                 <Ratings
                     rating={this.state.rating}
                     widgetHoverColor="#FFD300"
@@ -72,7 +72,11 @@ class NewReviewForm extends React.Component {
                     {/* widgetHoverColor="black"  */}
                     <Ratings.Widget widgetHoverColor="#FFD300" />
                 </Ratings>
-                <input type="submit" value="Submit" />
+                </div>
+               
+                <div className="submitButtonDiv">
+                <button className="submitButton" type="submit" value="Submit">Submit</button> 
+                </div>
             </form>
         )
     }

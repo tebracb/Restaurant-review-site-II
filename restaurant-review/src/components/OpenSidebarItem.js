@@ -66,6 +66,7 @@ class OpenSidebarItem extends React.Component {
         }
 
         let icon = this.state.showReviewForm ? <i className="fas fa-angle-up"></i> : <i className="fas fa-angle-down"></i>
+        let buttonStyle = this.state.showReviewForm ? "greyed" : null
 
         return (
 
@@ -76,7 +77,7 @@ class OpenSidebarItem extends React.Component {
                     restaurantDetails={this.props.restaurantDetails}
                 />
                 < hr />
-                <button onClick={this.handleClick}>Add Review {icon}</button>
+                <button onClick={this.handleClick} className={buttonStyle}>Add Review {icon}</button>
                 {this.state.showReviewForm ?
                     <div>
                         <NewReviewForm

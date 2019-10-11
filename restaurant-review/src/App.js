@@ -17,7 +17,6 @@ class App extends React.Component {
       restaurantDetails: null,
       newRestaurants: [],
       bounds: ""
-     // mapCenter: ""
     }
 
     this.logo = require("./components/img/lasagna.png")
@@ -60,8 +59,12 @@ class App extends React.Component {
     this.setState({
       bounds:bounds
     })
-
   }
+
+  setPanorama = (panorama) =>
+    this.setState({
+      panorama:panorama
+  })
 
   handleCloseClick = () => {
     this.setState({
@@ -108,7 +111,6 @@ class App extends React.Component {
       let selectedRestaurantCopy = this.state.selectedRestaurant;
       selectedRestaurantCopy["reviews"] = [];
       selectedRestaurantCopy.reviews.unshift(newReview)
-      console.log(selectedRestaurantCopy.reviews)
       this.setState({
         selectedRestaurant: selectedRestaurantCopy
       })
@@ -131,11 +133,6 @@ class App extends React.Component {
         <GoogleMap
 
           id="myMap"
-          // options={{
-          //   center: this.state.mapCenter ? this.state.mapCenter : { lat: 51.442, lng: 5.469 },
-          //   zoom: 14
-          // }}
-
 
           // pass state as props to GoogleMap
           restaurants={this.filterRestaurants()}

@@ -98,7 +98,7 @@ button {
       padding: 0px;
       font-weight: bold;
       font-family: 'Montserrat', sans-serif;
-      font-size: 16px
+      font-size: 16px;
       
 }
 
@@ -106,4 +106,9 @@ button:hover {
     text-decoration: none;
     border: none;
     color: #d35400
+}
+
+.greyed {
+    color: rgba(129, 122, 112, 0.61);
+    border-bottom: 1px solid rgba(129, 122, 112, 0.61);
 }

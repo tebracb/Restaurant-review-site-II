@@ -12,8 +12,24 @@ class SidebarInfo extends React.Component {
     }
 
     render() {
+
+    //    let setPanorama = () => {
         this.lat = typeof this.props.selectedRestaurant.geometry.location.lat === "function" ? this.props.selectedRestaurant.geometry.location.lat() : this.props.selectedRestaurant.geometry.location.lat
         this.lng = typeof this.props.selectedRestaurant.geometry.location.lng === "function" ? this.props.selectedRestaurant.geometry.location.lng() : this.props.selectedRestaurant.geometry.location.lng
+
+        // let lat = typeof this.props.selectedRestaurant.geometry.location.lat === "function" ? this.props.selectedRestaurant.geometry.location.lat() : this.props.selectedRestaurant.geometry.location.lat
+        // let lng = typeof this.props.selectedRestaurant.geometry.location.lng === "function" ? this.props.selectedRestaurant.geometry.location.lng() : this.props.selectedRestaurant.geometry.location.lng
+
+               
+               
+        //    let panorama = new window.google.maps.StreetViewPanorama(
+             
+        //       {
+        //         position: lat, lng,
+        //         pov: { heading: 165, pitch: 0 },
+        //         zoom: 1
+        //       })
+        //     }
 
         return (
             <div className="restaurantInfoDiv">
@@ -36,10 +52,9 @@ class SidebarInfo extends React.Component {
                 </div>
 
                 <img alt="Google Street View" src={`https://maps.googleapis.com/maps/api/streetview?size=300x200&location=${this.lat},${this.lng}&fov=90&heading=235&pitch=10&key=AIzaSyDbdKdJc9wSQ83SQAX9B34xJ_cydDMUQnQ&`} />
-                {/* <img
-                    alt="Google Street View"
-                    src={this.props.restaurantDetails.photos[0].getUrl()}
-                /> */}
+               
+                   {/* {panorama} */}
+                
                 <p><img alt="location icon" className="addressIcon" src={require("./img/location-pin.png")} />{this.props.selectedRestaurant.formatted_address}</p>
                 {this.props.selectedRestaurant.place_id && this.props.restaurantDetails ? 
                 <div> 

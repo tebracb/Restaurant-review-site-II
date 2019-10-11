@@ -177,7 +177,7 @@ class GoogleMap extends Component {
 
     this.props.restaurants.forEach(restaurant => {
       if (restaurant.marker === undefined) {
-    
+
         let markerOptions = {
           position:
           //checking if lat is a function (when coming from API); otherwise add regular lat,lng (when coming from JSON)
@@ -239,6 +239,13 @@ class GoogleMap extends Component {
 
       restaurant.marker.setVisible(true)
     })
+
+
+
+
+
+
+
 
 
     // changing visible markers when restaurant array in App's state is changing (e.g star rating filter was changed)

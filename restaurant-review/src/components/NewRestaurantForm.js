@@ -15,14 +15,12 @@ class NewRestaurantForm extends React.Component {
             this.setState({
                 name: e.target.value
             });
-            //     console.log(this.state.name)
         }
 
         this.handleAddressChange = (e) => {
             this.setState({
                 formatted_address: e.target.value
             });
-            //     console.log(this.state.name)
         }
 
 
