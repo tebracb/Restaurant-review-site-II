@@ -26,3 +26,9 @@
    display: block;
    margin: 5px 10px;
 }
+
+.newRestaurantInstruction {
+   position: absolute;
+   bottom: 0;
+   font-family: 'Montserrat', sans-serif;
+}

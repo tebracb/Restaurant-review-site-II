@@ -7,8 +7,8 @@ const mapStyles = {
   map: {
     position: 'absolute',
     width: '78%',
-    height: '94%',
-    bottom: '0'
+    height: '90%',
+    bottom: '40px'
   }
 };
 
@@ -241,13 +241,6 @@ class GoogleMap extends Component {
     })
 
 
-
-
-
-
-
-
-
     // changing visible markers when restaurant array in App's state is changing (e.g star rating filter was changed)
     prevProps.restaurants.forEach(restaurant => {
       if (!this.props.restaurants.includes(restaurant)) {
@@ -270,6 +263,7 @@ class GoogleMap extends Component {
           addNewRestaurant={this.props.addNewRestaurant}
         /> : null}
         </div>
+        <p className="newRestaurantInstruction">Add new restaurant to desired location with right click</p>
       </div>
     );
   }

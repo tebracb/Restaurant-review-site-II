@@ -20,7 +20,6 @@
     /* text-transform: uppercase; */
     font-size: 1.2em;
     background-color: antiquewhite;
-    color: #652913;
 }
 
 .button {
@@ -42,6 +41,16 @@
     text-decoration: none;
     border: none;
     color: #d35400
+}
+
+.button:disabled,
+.button[disabled]{
+    border: none;
+}
+
+.button:disabled:hover,
+.button[disabled]:hover{
+    color: #808080;
 }
 
 .fields{

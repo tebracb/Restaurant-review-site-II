@@ -8,7 +8,11 @@ class NewRestaurantForm extends React.Component {
 
         this.state = {
             name: "",
-            formatted_address: ""
+            formatted_address: "",
+
+            touched: {
+                name: false
+            }
         }
 
         this.handleNameChange = (e) => {
@@ -23,8 +27,25 @@ class NewRestaurantForm extends React.Component {
             });
         }
 
+        this.handleBlur = field => (e) => {
+            this.setState({
+                touched: { ...this.state.touched, [field]: true }
+            });
+        };
+
+        this.canBeSubmitted = () => {
+            const errors = this.validate(this.state.name, this.state.text);
+            const isDisabled = Object.keys(errors).some(x => errors[x]);
+            return !isDisabled;
+        }
+
 
         this.handleSubmit = (e) => {
+            //don't submit if form is not valid
+            if (!this.canBeSubmitted()) {
+                e.preventDefault();
+                return;
+            }
             e.preventDefault();
             let newRestaurant = {
                 name: this.state.name,
@@ -49,7 +70,14 @@ class NewRestaurantForm extends React.Component {
             this.props.addNewRestaurant(newRestaurant)
         }
 
-        this.closeForm =() => {
+        this.validate = (name) => {
+            // true means invalid, so our conditions got reversed
+            return {
+                name: name.length === 0
+            };
+        }
+
+        this.closeForm = () => {
             this.props.closeForm();
         }
 
@@ -57,27 +85,47 @@ class NewRestaurantForm extends React.Component {
 
 
     render() {
+
+        const errors = this.validate(this.state.name);
+        const isDisabled = Object.keys(errors).some(x => errors[x]);
+
+        const shouldMarkError = field => {
+            const hasError = errors[field];
+            const showError = this.state.touched[field];
+
+            return hasError ? showError : false;
+        };
+
         return (
             <div className="formDiv">
                 <div className="formContent">
-                    <h1>Add a new restaurant:</h1>
+                    <h2>Add a new restaurant:</h2>
                     <form onSubmit={this.handleSubmit}>
                         <div className="fields">
-                        <label>
-                            Name of restaurant:
-                        <input className="input" type="text" value={this.state.name} onChange={this.handleNameChange} />
-                        </label>
-                        <br />
-                        <label>
-                            Address(optional):
-                        <input className="input" type="text" value={this.state.formatted_address} onChange={this.handleAddressChange} />
-                        
-                        </label>
+                            <label>
+                                Name of restaurant:
+                        <input className={`input ${shouldMarkError("name") ? "error" : ""}`}
+                                    type="text"
+                                    value={this.state.name}
+                                    onChange={this.handleNameChange}
+                                    onBlur={this.handleBlur("name")}
+                                    required />
+                            </label>
+                            <br />
+                            <label>
+                                Address(optional):
+                        <input className="input"
+                                    type="text"
+                                    value={this.state.formatted_address}
+                                    onChange={this.handleAddressChange}
+                                />
+
+                            </label>
                         </div>
                         <br />
                         <div className="buttonDiv">
-                        <input className="button" type="submit" value="Submit" />
-                        <button className="button" onClick={this.closeForm}>Cancel</button> 
+                            <button disabled={isDisabled} className="button" type="submit" value="Submit">Submit</button>
+                            <button className="button" onClick={this.closeForm}>Cancel</button>
                         </div>
                     </form>
                 </div>
