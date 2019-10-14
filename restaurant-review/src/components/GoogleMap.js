@@ -2,15 +2,9 @@ import React, { Component } from 'react'
 import InfoWindow from "./InfoWindow.js"
 import ReactDOMServer from "react-dom/server"
 import NewRestaurantForm from "./NewRestaurantForm"
+import "./GoogleMap.css"
 
-const mapStyles = {
-  map: {
-    position: 'absolute',
-    width: '78%',
-    height: '90%',
-    bottom: '40px'
-  }
-};
+
 
 const selectedMarker = {
   URL: require("./img/restaurant.png")
@@ -255,7 +249,7 @@ class GoogleMap extends Component {
     return (
       <div>
         {/* <div style={{backgroundColor:"#add8e6"}}> Navbar</div> */}
-        <div style={mapStyles.map} id={this.props.id} />
+        <div className="mapStyles" id={this.props.id} />
         <div> {this.state.showForm ? <NewRestaurantForm
           closeForm={this.closeForm}
           newRestaurantLat={this.state.newRestaurantLat}
@@ -263,7 +257,9 @@ class GoogleMap extends Component {
           addNewRestaurant={this.props.addNewRestaurant}
         /> : null}
         </div>
-        <p className="newRestaurantInstruction">Add new restaurant to desired location with right click</p>
+        <div className="newRestaurantInstruction">
+        <p>Add new restaurant to desired location with right click</p>
+        </div>
       </div>
     );
   }

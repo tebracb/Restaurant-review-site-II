@@ -29,6 +29,28 @@
 
 .newRestaurantInstruction {
    position: absolute;
-   bottom: 0;
+   bottom: 5px;
+   left: 30%;
    font-family: 'Montserrat', sans-serif;
+   background-color:rgba(224, 170, 55, 0.514);
+   text-align: center;
+   
+}
+
+.newRestaurantInstruction p {
+   margin: 0px;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width : 767px) {
+   .logo{
+      width: 10%;
+   }
+
+   .Navbar {
+      width: fit-content;
+   }
+
+   .Navbar span {
+      font-size: 12px;
+   }
 }

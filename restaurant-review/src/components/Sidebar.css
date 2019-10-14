@@ -10,6 +10,18 @@
     overflow-y: scroll
 }
 
+@media only screen and (min-device-width: 320px) and (max-device-width : 1024px)  {
+     /* STYLES GO HERE */
+    .sidebarDiv {
+        width: 95%;
+        position: absolute;
+        bottom: 10%;
+        height: 30%;
+    }
+
+
+}
+
 .ratingsDiv {
     margin-bottom: 20px
 }
