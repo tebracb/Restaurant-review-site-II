@@ -12,6 +12,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.error {
+    border: 1px solid red;
+  }
+
 .reviewRatingsDiv {
     text-align: right;
     margin-right: 10px;
@@ -32,14 +36,22 @@
         padding: 0px;
         font-weight: bold;
         font-family: 'Montserrat', sans-serif;
-        font-size: 16px;
-    
-        width: max-content;
-      
+        font-size: 16px; 
+        width: max-content;   
 }
 
 .submitButton:hover {
     text-decoration: none;
     border: none;
     color: #d35400
+}
+
+.submitButton:disabled,
+.submitButton[disabled]{
+    border: none;
+}
+
+.submitButton:disabled:hover,
+.submitButton[disabled]:hover{
+    color: #808080;
 }
