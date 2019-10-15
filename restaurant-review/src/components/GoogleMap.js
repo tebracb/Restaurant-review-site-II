@@ -42,13 +42,13 @@ class GoogleMap extends Component {
 
   // PLACE DETAILS API //
   getPlaceDetail = (placeId) => {
-    const placeRequest = {
+    const detailRequest = {
       placeId: placeId,
       fields: ['name', 'rating', 'reviews', 'place_id', 'formatted_phone_number', 'website', 'photos']
     };
 
-    const service = new window.google.maps.places.PlacesService(this.map);
-    service.getDetails(placeRequest, this.placeCallback)
+
+    this.placesService.getDetails(detailRequest, this.detailCallback)
   }
 
 
@@ -63,24 +63,24 @@ class GoogleMap extends Component {
           zoom: 14
         });
 
+      this.placesService = new window.google.maps.places.PlacesService(this.map);
+
 
       // GOOGLE PLACES API  
       //- sending new request every time user changes bounds on the map//
       this.map.addListener('idle', (e) => {
 
-        const request = {
+        const placesRequest = {
           location: this.map.getCenter(),
           radius: "50",
           types: ["restaurant"]
         };
 
         //send up map bounds to App so it can filter out restaurants outside of the bounds(not visible)
-        let bounds = this.map.getBounds()
-        this.props.setBounds(bounds)
+        let bounds = this.map.getBounds();
+        this.props.setBounds(bounds);
 
-        
-        const service = new window.google.maps.places.PlacesService(this.map);
-        service.textSearch(request, this.callback);
+        this.placesService.textSearch(placesRequest, this.placesCallback);
       })
 
       this.map.addListener("rightclick", (e) => {
@@ -118,7 +118,7 @@ class GoogleMap extends Component {
         icon: require("./img/map-pin2.png")
       });
 
-      let locationInfo = new window.google.maps.InfoWindow;
+      let locationInfo = new window.google.maps.InfoWindow();
       locationMarker.addListener('mouseover', (e) => {
         locationInfo.setContent("You are here")
         locationInfo.open(this.map, locationMarker);
@@ -138,28 +138,31 @@ class GoogleMap extends Component {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError)
+    } else {
+      onGeolocationError();
     }
 
   }
 
-  callback = (results, status) => {
+  placesCallback = (results, status) => {
     if (status === window.google.maps.places.PlacesServiceStatus.OK) {
       // console.log(results)
 
       //filtering out results which don't have photo or ratings
-      let validResults = results.filter((result) => {
-        if (result.photos && result.rating !== 0) {
-          return result
-        }
-      })
+      let validResults = results.filter((result) =>
+        result.photos && result.rating !== 0
+      )
 
       //put results to App via props (callback from child to parent)
       this.props.setRestaurants(validResults)
+    } else {
+      alert("Something went wrong! Please try refreshing the page")
     }
+
   }
 
-  placeCallback = (place, status) => {
-    if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+  detailCallback = (place, status) => {
+    if (status === window.google.maps.places.PlacesServiceStatus.OK) {
       this.props.getDetails(place)
     }
   }
@@ -212,15 +215,6 @@ class GoogleMap extends Component {
         })
       }
 
-      //if marker or SidebarItem click changes selectedRestaurant, Place Detials API gets details of new 
-      // selectedRestaurant and it's displayed in Sidebar
-
-      if (this.props.selectedRestaurant && (prevProps.selectedRestaurant !== this.props.selectedRestaurant)) {
-        if (this.props.selectedRestaurant.place_id) {
-          this.getPlaceDetail(this.props.selectedRestaurant.place_id)
-        }
-      }
-
       // Marker changes
       if (this.props.selectedRestaurant === restaurant) {
         restaurant.marker.setIcon(selectedMarker.URL);
@@ -233,6 +227,13 @@ class GoogleMap extends Component {
       restaurant.marker.setVisible(true)
     })
 
+    //if marker or SidebarItem click changes selectedRestaurant, Place Detials API gets details of new 
+    // selectedRestaurant and it's displayed in Sidebar
+    if (this.props.selectedRestaurant && (prevProps.selectedRestaurant !== this.props.selectedRestaurant)) {
+      if (this.props.selectedRestaurant.place_id) {
+        this.getPlaceDetail(this.props.selectedRestaurant.place_id)
+      }
+    }
 
     // changing visible markers when restaurant array in App's state is changing (e.g star rating filter was changed)
     prevProps.restaurants.forEach(restaurant => {
@@ -257,7 +258,7 @@ class GoogleMap extends Component {
         /> : null}
         </div>
         <div className="newRestaurantInstruction">
-        <p>Add new restaurant to desired location with right click</p>
+          <p>Add new restaurant to desired location with right click</p>
         </div>
       </div>
     );

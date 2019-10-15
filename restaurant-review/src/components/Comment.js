@@ -19,7 +19,7 @@ class Comment extends React.Component {
         return (
             <div className="commentDiv">
                 <div>
-                <img onError={this.handleError} className="profilePhoto" src={this.src} />
+                <img onError={this.handleError} className="profilePhoto" alt="user avatar" src={this.src} />
                     <p>{this.props.review.author_name}</p>
                     
                      <Ratings

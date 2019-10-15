@@ -121,7 +121,7 @@ class App extends React.Component {
     <div>
      <div className="Navbar">
      
-    <img className="logo" src= {this.logo} />
+    <img className="logo" alt="Lasagna logo" src= {this.logo} />
     <h2>Lasagna! <span>- the No 1 restaurant rating app</span></h2>
        
      </div>

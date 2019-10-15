@@ -2,11 +2,6 @@ import React from "react"
 import "./Sidebar.css"
 
 class SidebarItem extends React.Component {
-    constructor(props) {
-        super(props)
-
-    }
-
 
     render() {
         

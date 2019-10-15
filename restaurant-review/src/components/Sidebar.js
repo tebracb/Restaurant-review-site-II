@@ -5,9 +5,6 @@ import "./Sidebar.css"
 import OpenSidebarItem from "./OpenSidebarItem";
 
 class Sidebar extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         const restaurantMeta = this.props.restaurants.map(restaurant =>
@@ -20,17 +17,17 @@ class Sidebar extends React.Component {
         )
 
         return (
-        
+
 
             this.props.selectedRestaurant === null ?
                 <div className="sidebarDiv">
                     {/* component for the stars (for filtering ratings) */}
                     <span>Minimum rating:</span>
                     <div className="ratingsDiv">
-                    <FilterRatings
-                        setSelectedRating={this.props.setSelectedRating}
-                        selectedRating={this.props.selectedRating}
-                    />
+                        <FilterRatings
+                            setSelectedRating={this.props.setSelectedRating}
+                            selectedRating={this.props.selectedRating}
+                        />
                     </div>
                     {restaurantMeta}
                 </div>
