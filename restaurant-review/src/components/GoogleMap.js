@@ -72,14 +72,13 @@ class GoogleMap extends Component {
           location: this.map.getCenter(),
           radius: "50",
           types: ["restaurant"]
-          // keyword: "restaurant"
-
-          //service.nearbySearch(this.request, this.callback); // giving weird results
         };
+
+        //send up map bounds to App so it can filter out restaurants outside of the bounds(not visible)
         let bounds = this.map.getBounds()
         this.props.setBounds(bounds)
 
-        // TODO: make only 1 service (just like how we're only making 1 map)
+        
         const service = new window.google.maps.places.PlacesService(this.map);
         service.textSearch(request, this.callback);
       })

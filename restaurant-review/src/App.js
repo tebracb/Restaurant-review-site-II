@@ -26,7 +26,7 @@ class App extends React.Component {
   setRestaurants = (apiresults) => {
 
     let allRestaurants = apiresults.concat(restaurantData);
-    allRestaurants = allRestaurants.concat(this.state.newRestaurants)
+    allRestaurants = allRestaurants.concat(this.state.newRestaurants);
 
 
     this.setState({
@@ -61,10 +61,6 @@ class App extends React.Component {
     })
   }
 
-  setPanorama = (panorama) =>
-    this.setState({
-      panorama:panorama
-  })
 
   handleCloseClick = () => {
     this.setState({

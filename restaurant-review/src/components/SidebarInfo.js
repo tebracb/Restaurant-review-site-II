@@ -1,7 +1,7 @@
 import React from "react"
 import Ratings from "react-ratings-declarative";
 import ReactDOM from "react-dom";
-import ReactStreetview from 'react-streetview';
+import ReactStreetview from './MyReactStreetview';
 
 class SidebarInfo extends React.Component {
     constructor(props) {
@@ -22,13 +22,20 @@ class SidebarInfo extends React.Component {
                  lat:typeof this.props.selectedRestaurant.geometry.location.lat === "function" ? this.props.selectedRestaurant.geometry.location.lat() : this.props.selectedRestaurant.geometry.location.lat,
                  lng:typeof this.props.selectedRestaurant.geometry.location.lng === "function" ? this.props.selectedRestaurant.geometry.location.lng() : this.props.selectedRestaurant.geometry.location.lng
             } 
-            console.log(this.props.selectedRestaurant.geometry.location)
          }
 
          this.streetViewPanoramaOptions = {
             position: this.position,
             pov: { heading: 100, pitch: 0 },
-            zoom: 1
+            zoom: 1,
+            addressControl: false,
+            scrollwheel: false,
+            motionTracking: false,
+            motionTrackingControl: false,
+            streetViewControl: false,
+            disableDefaultUI: true
+         
+            
         };
       
         // see https://developers.google.com/maps/documentation/javascript
@@ -40,11 +47,6 @@ class SidebarInfo extends React.Component {
         // see https://developers.google.com/maps/documentation/javascript/3.exp/reference#StreetViewPanoramaOptions
         
         
-        
-    
-
-
-
 
 //    let setPanorama = () => {
 
@@ -84,9 +86,8 @@ return (
 
         {/* {panorama} */}
         <div style={{
-            width: '800px',
-            height: '450px',
-            backgroundColor: '#eeeeee'
+            width: '400px',
+            height: '250px'
         }}>
             <ReactStreetview
                 apiKey={googleMapsApiKey}

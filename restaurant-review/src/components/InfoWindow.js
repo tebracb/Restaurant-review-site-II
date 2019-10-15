@@ -8,17 +8,6 @@ class InfoWindow extends React.Component {
         super()
     }
 
-
-    // createPanorama = () => {
-    //     new window.google.maps.StreetViewPanorama({
-
-    //           position:
-    //            {lat: this.props.lat, 
-    //             lng: this.props.lng},
-    //           })
-
-    // }
-
     render() {
 
         return (
