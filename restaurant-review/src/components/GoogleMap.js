@@ -3,6 +3,7 @@ import InfoWindow from "./InfoWindow.js"
 import ReactDOMServer from "react-dom/server"
 import NewRestaurantForm from "./NewRestaurantForm"
 import "./GoogleMap.css"
+import placeholder from "./img/restaurant-placeholder.jpg"
 
 
 
@@ -199,7 +200,7 @@ class GoogleMap extends Component {
           let infoWindowContent = <InfoWindow
             name={restaurant.name}
             imageAvailable={restaurant.photos !== undefined ? true : false}
-            imgSrc={typeof restaurant.photos[0].getUrl === "function" ? restaurant.photos[0].getUrl() : restaurant.photos[0]}
+            imgSrc={typeof restaurant.photos[0].getUrl === "function" ? restaurant.photos[0].getUrl() : placeholder}
             rating={restaurant.rating}
           />
           this.infoWindow.open(this.map, restaurant.marker);

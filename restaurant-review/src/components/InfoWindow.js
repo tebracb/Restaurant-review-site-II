@@ -1,6 +1,7 @@
 import React from "react"
 import "./InfoWindow.css"
 import Ratings from "react-ratings-declarative"
+import placeholder from "./img/restaurant-placeholder.jpg"
 
 
 class InfoWindow extends React.Component {
@@ -11,12 +12,9 @@ class InfoWindow extends React.Component {
         return (
             <div className="infoDiv">
 
-                {this.props.imageAvailable ?
-
                     <div className="photoDiv">
-                        <img alt="Restaurant" className="infoPhoto" src={this.props.imgSrc} />
+                        <img alt="Restaurant" className="infoPhoto" src={this.props.imgSrc ? this.props.imgSrc : placeholder} />
                     </div>
-                    : null}
 
 
                 <div>
