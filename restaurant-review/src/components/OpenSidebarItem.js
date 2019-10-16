@@ -40,7 +40,7 @@ class OpenSidebarItem extends React.Component {
                             review={review}
                         />
                     )
-                } 
+                }
                 reviews = this.props.restaurantDetails.reviews.map(review =>
                     <Comment
                         key={review.author_url}

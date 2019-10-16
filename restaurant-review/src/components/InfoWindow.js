@@ -6,15 +6,19 @@ import placeholder from "./img/restaurant-placeholder.jpg"
 
 class InfoWindow extends React.Component {
 
+    handleError = (e) => {
+        e.target.src = placeholder
+    }
+
 
     render() {
 
         return (
             <div className="infoDiv">
 
-                    <div className="photoDiv">
-                        <img alt="Restaurant" className="infoPhoto" src={this.props.imgSrc ? this.props.imgSrc : placeholder} />
-                    </div>
+                <div className="photoDiv">
+                    <img onError={this.handleError} alt="Restaurant" className="infoPhoto" src={this.props.imgSrc ? this.props.imgSrc : placeholder} />
+                </div>
 
 
                 <div>

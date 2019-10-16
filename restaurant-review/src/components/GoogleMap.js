@@ -147,7 +147,6 @@ class GoogleMap extends Component {
 
   placesCallback = (results, status) => {
     if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-      // console.log(results)
 
       //filtering out results which don't have photo or ratings
       let validResults = results.filter((result) =>
@@ -191,9 +190,9 @@ class GoogleMap extends Component {
 
         //--------------------ADD LISTENERS-----------------------//
 
-        if (this.newMarker) {
-          restaurant.marker.push(this.newMarker)
-        }
+        // if (this.newMarker) {
+        //   restaurant.marker.push(this.newMarker)
+        // }
 
 
         restaurant.marker.addListener('mouseover', (e) => {
@@ -222,7 +221,6 @@ class GoogleMap extends Component {
 
       } else {
         restaurant.marker.setIcon(defaultImg.URL)
-        //restaurant.marker.setIcon(require("./img/restaurantmarker.svg"))
       }
 
       restaurant.marker.setVisible(true)
@@ -249,9 +247,9 @@ class GoogleMap extends Component {
 
     return (
       <div>
-        {/* <div style={{backgroundColor:"#add8e6"}}> Navbar</div> */}
         <div className="mapStyles" id={this.props.id} />
-        <div> {this.state.showForm ? <NewRestaurantForm
+        <div> {this.state.showForm ? 
+        <NewRestaurantForm
           closeForm={this.closeForm}
           newRestaurantLat={this.state.newRestaurantLat}
           newRestaurantLng={this.state.newRestaurantLng}
