@@ -190,11 +190,6 @@ class GoogleMap extends Component {
 
         //--------------------ADD LISTENERS-----------------------//
 
-        // if (this.newMarker) {
-        //   restaurant.marker.push(this.newMarker)
-        // }
-
-
         restaurant.marker.addListener('mouseover', (e) => {
           let infoWindowContent = <InfoWindow
             name={restaurant.name}

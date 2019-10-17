@@ -124,8 +124,9 @@ class NewRestaurantForm extends React.Component {
                         </div>
                         <br />
                         <div className="buttonDiv">
-                            <button disabled={isDisabled} className="button" type="submit" value="Submit">Submit</button>
                             <button className="button" onClick={this.closeForm}>Cancel</button>
+                            <button disabled={isDisabled} className="button" type="submit" value="Submit">Submit</button>
+
                         </div>
                     </form>
                 </div>

@@ -18,8 +18,6 @@
         bottom: 10%;
         height: 30%;
     }
-
-
 }
 
 .ratingsDiv {
@@ -37,13 +35,6 @@ h2 {
     margin-bottom: 5px
 }
 
-/* .devider {
-
-   border: 0;
-   height: 1px;
-   background:rgb(90, 56, 5);  
-} */
-
 .itemDiv {
     border-bottom: 1px solid #c06b11;
     padding-left: 10px
@@ -58,8 +49,6 @@ h2 {
     padding-top: 5px
 }
 
-
-
 .addressIcon {
     width: 25px;
     margin-right: 10px;
@@ -69,7 +58,6 @@ h2 {
 .siteLink {
     margin-top: -5px
 }
-
 
 .restaurantInfoDiv p {
     font-size: 15px;
@@ -94,7 +82,6 @@ h2 {
     cursor: pointer;
 }
 
-
 *:focus {
     outline: none;
 }
@@ -110,8 +97,7 @@ button {
       padding: 0px;
       font-weight: bold;
       font-family: 'Montserrat', sans-serif;
-      font-size: 16px;
-      
+      font-size: 16px;     
 }
 
 button:hover {

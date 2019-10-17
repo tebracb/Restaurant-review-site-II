@@ -10,16 +10,13 @@ class InfoWindow extends React.Component {
         e.target.src = placeholder
     }
 
-
     render() {
 
         return (
             <div className="infoDiv">
-
                 <div className="photoDiv">
                     <img onError={this.handleError} alt="Restaurant" className="infoPhoto" src={this.props.imgSrc ? this.props.imgSrc : placeholder} />
                 </div>
-
 
                 <div>
                     <p className="restName" >{this.props.name}</p>

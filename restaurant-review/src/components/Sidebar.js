@@ -18,7 +18,6 @@ class Sidebar extends React.Component {
 
         return (
 
-
             this.props.selectedRestaurant === null ?
                 <div className="sidebarDiv">
                     {/* component for the stars (for filtering ratings) */}
@@ -39,7 +38,6 @@ class Sidebar extends React.Component {
                         handleCloseClick={this.props.handleCloseClick}
                         addNewReview={this.props.addNewReview}
                     />
-
                 </div>
         )
     }

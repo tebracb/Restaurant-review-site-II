@@ -4,29 +4,6 @@ import Ratings from "react-ratings-declarative"
 import profilePhoto from "./img/profilephoto.png"
 
 class Comment extends React.Component {
-    constructor(props) {
-        super(props)
-
-        // this.state = {
-        //     src: profilePhoto
-        // }
-    }
-
-    // componentDidMount() {
-
-    //     if (this.props.review.profile_photo_url) {
-    //         
-    //         this.setState({
-    //             src: this.props.review.profile_photo_url
-    //         })
-    //     }
-    // }
-
-    // handleError = (e) => {
-    //     this.setState({
-    //         src: profilePhoto
-    //     })
-    // }
 
     handleError = (e) => {
         e.target.src = profilePhoto
@@ -55,12 +32,9 @@ class Comment extends React.Component {
 
                 </div>
 
-
-
                 <div>
                     <p>{this.props.review.text}</p>
                 </div>
-                {/* <hr /> */}
             </div>
         )
     }

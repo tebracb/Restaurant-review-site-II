@@ -19,7 +19,6 @@ class FilterRatings extends React.Component {
           <Ratings.Widget widgetHoverColor="#FFD300" />
           <Ratings.Widget widgetHoverColor="#FFD300" />
           <Ratings.Widget widgetHoverColor="#FFD300" />
-          {/* widgetHoverColor="black"  */}
           <Ratings.Widget widgetHoverColor="#FFD300" />
         </Ratings>
       </div>
