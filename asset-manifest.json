@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Restaurant-review-site-II/static/css/main.f7202843.chunk.css",
+    "main.js": "/Restaurant-review-site-II/static/js/main.5d61925a.chunk.js",
+    "main.js.map": "/Restaurant-review-site-II/static/js/main.5d61925a.chunk.js.map",
+    "runtime~main.js": "/Restaurant-review-site-II/static/js/runtime~main.d4256ea2.js",
+    "runtime~main.js.map": "/Restaurant-review-site-II/static/js/runtime~main.d4256ea2.js.map",
+    "static/js/2.5edd40ff.chunk.js": "/Restaurant-review-site-II/static/js/2.5edd40ff.chunk.js",
+    "static/js/2.5edd40ff.chunk.js.map": "/Restaurant-review-site-II/static/js/2.5edd40ff.chunk.js.map",
+    "index.html": "/Restaurant-review-site-II/index.html",
+    "precache-manifest.86f1b4a96fce725515dd03786c351c73.js": "/Restaurant-review-site-II/precache-manifest.86f1b4a96fce725515dd03786c351c73.js",
+    "service-worker.js": "/Restaurant-review-site-II/service-worker.js",
+    "static/css/main.f7202843.chunk.css.map": "/Restaurant-review-site-II/static/css/main.f7202843.chunk.css.map",
+    "static/media/call1.png": "/Restaurant-review-site-II/static/media/call1.ecce8832.png",
+    "static/media/lasagna.png": "/Restaurant-review-site-II/static/media/lasagna.bb103874.png",
+    "static/media/location-pin.png": "/Restaurant-review-site-II/static/media/location-pin.e895bc9d.png",
+    "static/media/restaurant-placeholder.jpg": "/Restaurant-review-site-II/static/media/restaurant-placeholder.7f69b99b.jpg",
+    "static/media/www.png": "/Restaurant-review-site-II/static/media/www.d27e536c.png"
+  }
+}
