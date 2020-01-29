@@ -25,10 +25,6 @@ to be shown
 * React Ratings Declarative to display ratings and for filter tool
 * react-streetview to be able to add Street View Panorama to my app
 
-Develop a full JavaScript application according to a specification
-Debug an application using DevTools
-
-
 ### Technologies:
 * **ReactJS**, **create-react-app**
 * APIs (**Geolocation API**, **Google Places API**, **Place Details API**, **Street View Panorama**) 
