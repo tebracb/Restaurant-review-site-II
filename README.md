@@ -22,8 +22,8 @@ to be shown
 * Instead of the static Google Street View photo I used Street View Panorama which allows 360 degree views
 
 ### Dependencies used
-* React Ratings Declarative to display ratings and for filter tool
-* react-streetview to be able to add Street View Panorama to my app
+* **React Ratings Declarative** to display ratings and for filter tool
+* **react-streetview** to be able to add Street View Panorama to my app
 
 ### Technologies:
 * **ReactJS**, **create-react-app**
